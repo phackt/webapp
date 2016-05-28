@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- config de la datasource -->
+    
+    <!-- c??serveur (en production)  
+    <jee:jndi-lookup id="dataSource"
+        	jndi-name="java:comp/env/jdbc/myDataSource" />
+   -->
+   <jdbc:embedded-database id="dataSource" type="HSQL"></jdbc:embedded-database>
+	
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!--        <property name="driverClassName" value="com.mysql.jdbc.Driver"/> -->
+<!--        <property name="url" value="jdbc:hsqldb:mem:dataSource"/> -->
+<!--        <property name="username" value="sa"/> -->
+<!--        <property name="password" value=""/> -->
+<!--    </bean> -->
+   
+   
+   <!-- support des annotations JPA -->
+   <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+   
+   <!-- configuration de la sessionFacory d'Hibernate - package to scan pour les entitys -->
+   <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+     	<property name="dataSource" ref="dataSource"/>  
+<!--      	<property name="packagesToScan"> -->
+<!--      	    <list> -->
+<!--      	        <value>fr.dawan.projet.model</value> -->
+<!--      	    </list> -->
+<!--      	</property> -->
+     	<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.HSQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+   </bean>
+   
+   <!-- gestion des transactions par annontations -->
+   <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="autodetectDataSource" value="true"/>
+	</bean>
+
+	<!-- Transactionnal -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
