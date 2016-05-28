@@ -110,13 +110,27 @@
 		</dependency>
 	
 		<!-- Test -->
+		<!-- http://mvnrepository.com/artifact/org.springframework/spring-test -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.7</version>
-			<scope>test</scope>
-		</dependency> 
-		
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${org.springframework-version}</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>commons-logging</artifactId>
+		    		<groupId>commons-logging</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>junit</artifactId>
+		    		<groupId>junit</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		</dependency>
 		<!-- Jackson JSON api-->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
