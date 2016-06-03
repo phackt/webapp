@@ -35,6 +35,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 	DirtiesContextTestExecutionListener.class,
 	TransactionalTestExecutionListener.class,
 	DbUnitTestExecutionListener.class })
+@Transactional
 @DatabaseSetup("/dbtest/sample-fileDaoTest.xml")
 public class FileDaoTest {
 
@@ -56,7 +57,6 @@ public class FileDaoTest {
 	}
 	
 	@Test
-	@Transactional
 	public void should_update_files(){
 		FileEntity fileEntity = fileDao.find("fichier.txt").get(0);
 		fileEntity.setDescription("updated");
@@ -70,7 +70,6 @@ public class FileDaoTest {
 	}
 	
 	@Test
-	@Transactional
 	public void should_delete_files(){
 		FileEntity fileEntity = fileDao.find("fichier.txt").get(0);
 		Long id = fileEntity.getId();

@@ -11,8 +11,8 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.gab.revision">
-		<level value="info" />
+	<logger name="com.gab.onewebapp">
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
