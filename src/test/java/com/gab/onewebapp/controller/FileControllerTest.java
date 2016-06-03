@@ -1,7 +1,8 @@
-package com.gab.onewebapp.file;
+package com.gab.onewebapp.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
@@ -33,9 +33,9 @@ import com.gab.onewebapp.controller.FileController;
 	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml"),
 	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml")
 })
-public class TransferFileTest {
+public class FileControllerTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(TransferFileTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(FileControllerTest.class);
 	
 	@Autowired
     private WebApplicationContext wac;
@@ -43,7 +43,7 @@ public class TransferFileTest {
 	private MockMvc mockMvc;
 	
 	@Before
-    public void setup() {
+    public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 	
@@ -56,6 +56,8 @@ public class TransferFileTest {
 		try {
 			this.mockMvc.perform(fileUpload(FileController.ROUTE_UPLOAD_FILE).file(mockMultipartFile))
 			.andExpect(status().isOk());
+//			.andExpect(model().attributeExists("newFileId"));					
+			
 		} catch (Exception e) {
 			logger.error("Exception raised in test method TransferFileTest.should_be_success_when_file_uploaded()");
 			logger.error(e.toString());

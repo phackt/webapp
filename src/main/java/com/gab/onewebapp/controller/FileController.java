@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +31,8 @@ public class FileController {
 	@RequestMapping(value = ROUTE_UPLOAD_FILE, method = RequestMethod.POST)
 	public ModelAndView uploadFile(Model model, HttpServletRequest req, @RequestParam("file")MultipartFile file) {
 
+		logger.info("calling route " + ROUTE_UPLOAD_FILE);
+		
 		if(file.isEmpty()){
 			model.addAttribute("msgUpload", "Fichier vide");
 		}else{

@@ -25,7 +25,7 @@
 	
 	<!-- config de la datasource -->
     
-    <!-- c??serveur (en production)  
+    <!-- serveur (en production)  
     <jee:jndi-lookup id="dataSource"
         	jndi-name="java:comp/env/jdbc/myDataSource" />
    -->
@@ -45,11 +45,11 @@
    <!-- configuration de la sessionFacory d'Hibernate - package to scan pour les entitys -->
    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
      	<property name="dataSource" ref="dataSource"/>  
-<!--      	<property name="packagesToScan"> -->
-<!--      	    <list> -->
-<!--      	        <value>fr.dawan.projet.model</value> -->
-<!--      	    </list> -->
-<!--      	</property> -->
+	  		<property name="packagesToScan">
+	     	    <list>
+	     	        <value>com.gab.onewebapp.model</value>
+	     	    </list>
+	     	</property>
      	<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">
@@ -71,4 +71,6 @@
 	<!-- Transactionnal -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
+	<!-- DAO beans scan -->
+	<context:component-scan base-package="com.gab.onewebapp.dao" />
 </beans>
