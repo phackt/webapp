@@ -34,9 +34,7 @@ public class DateUtilsTest {
 			assertEquals("12/21/2016",DateUtils.formatDate(date, new Locale("EN","en")));
 			assertEquals("21/12/2016",DateUtils.formatDate(date, new Locale("FR","fr")));
 		} catch (ParseException e) {
-			logger.error("Exception raised in test method TransferFileTest.should_format_date_thanks_to_locale()");
-			logger.error(e.toString());
-			logger.error("stack trace: " + e.getStackTrace());
+			logger.error("Exception raised:",e);
 		}
 		
 		

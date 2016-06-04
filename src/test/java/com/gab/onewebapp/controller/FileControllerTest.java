@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.gab.onewebapp.dao.FileDao;
+import com.gab.onewebapp.model.FileEntity;
 
 
 /**
@@ -66,9 +67,7 @@ public class FileControllerTest {
 		try {
 			FileUtils.cleanDirectory(new File(filesUploadedPath));
 		} catch (IOException e) {
-			logger.error("Exception raised in test method FileControllerTest.tearDown()");
-			logger.error(e.toString());
-			logger.error("stack trace: " + ExceptionUtils.getStackTrace(e));
+			logger.error("Exception raised:",e);
 		}
 	}
 	
@@ -87,10 +86,10 @@ public class FileControllerTest {
 			assertFalse(fileDao.find(fileName).isEmpty());
 			assertEquals(fileDao.find(fileName).get(0).getDescription(),"fichier test");
 			
+			//Delete
+			FileEntity f = fileDao.find(fileName).get(50);
 		} catch (Exception e) {
-			logger.error("Exception raised in test method FileControllerTest.should_be_success_when_file_uploaded()");
-			logger.error(e.toString());
-			logger.error("stack trace: " + ExceptionUtils.getStackTrace(e));
+			logger.error("Exception raised:",e);
 		}
 	}
 }

@@ -70,9 +70,7 @@ public class FileController {
 				
 				route = ROUTE_SHOW_FILES;
 			} catch (IOException e) {
-				logger.error("Exception raised in test method FileController.uploadFile()");
-				logger.error(e.toString());
-				logger.error("stack trace: " + ExceptionUtils.getStackTrace(e));
+				logger.error("Exception raised:",e);
 				model.addAttribute("msgUpload","Erreur lors de l'envoi du fichier.");
 			}
 			

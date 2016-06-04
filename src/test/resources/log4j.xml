@@ -9,6 +9,20 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+		
+		<!-- https://wiki.apache.org/logging-log4j/LogToAppenderByLevel -->
+		
+<!-- 	<appender name="consoleError" class="org.apache.log4j.ConsoleAppender"> -->
+<!-- 		<param name="Target" value="System.out" /> -->
+<!-- 		<layout class="org.apache.log4j.PatternLayout"> -->
+<!-- 			<param name="ConversionPattern" value="%-5p: %c - %m%n" /> -->
+<!-- 		</layout> -->
+<!-- 		<filter class="org.apache.log4j.varia.LevelRangeFilter"> -->
+<!--             <param name="LevelMax" value="debug"/> -->
+<!--             <param name="LevelMin" value="fatal"/> -->
+<!--             <param name="AcceptOnMatch" value="true"/> -->
+<!--         </filter> -->
+<!-- 	</appender> -->
 	
 	<!-- Application Loggers -->
 	<logger name="com.gab.onewebapp">
@@ -18,7 +32,7 @@
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
-	</logger>	
+	</logger>
 	
 	<logger name="org.springframework.beans">
 		<level value="info" />
@@ -34,7 +48,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
 	
