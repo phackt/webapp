@@ -5,13 +5,17 @@ import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * @author gabriel
+ * 
+ */
 public class FileUploadForm {
 	
 	@NotNull
 	private MultipartFile file;
 	
 	@Size(min=4,max=200, message="Description trop longue.")
-	private String description;
+	private String description = "";
 
 	public FileUploadForm(){
 		

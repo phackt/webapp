@@ -2,13 +2,13 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Upload Files</title>
 </head>
 <body>
 <h1>
-	ALL links to features  
+	Upload Files 
 </h1>
 
-<P>  Describe all features here. </P>
+<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>

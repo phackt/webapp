@@ -1,6 +1,6 @@
 package com.gab.onewebapp.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,15 +11,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gab.onewebapp.utils.DateUtils;
-
-
 /**
  * @author gabriel
- * This allows performing requests and generating responses without the need for running in a Servlet container.
  * 
  */
-
 public class DateUtilsTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DateUtilsTest.class);

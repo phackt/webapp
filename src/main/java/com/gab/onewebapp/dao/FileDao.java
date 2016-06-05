@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gab.onewebapp.model.FileEntity;
 
+/**
+ * @author gabriel
+ * 
+ */
 @Repository
 public class FileDao {
 	

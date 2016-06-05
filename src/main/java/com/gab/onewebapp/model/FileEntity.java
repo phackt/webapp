@@ -11,7 +11,10 @@ import javax.persistence.TemporalType;
 
 import com.gab.onewebapp.utils.DateUtils;
 
-
+/**
+ * @author gabriel
+ * 
+ */
 @Entity
 public class FileEntity{
 

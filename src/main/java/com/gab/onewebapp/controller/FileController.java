@@ -4,11 +4,12 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ import com.gab.onewebapp.dao.FileDao;
 import com.gab.onewebapp.model.FileEntity;
 
 /**
- * Handles requests for the application home page.
+ * @author gabriel
+ * 
  */
 @Controller
 public class FileController {
@@ -37,8 +39,10 @@ public class FileController {
 	private FileDao fileDao;
 	
 	public static final String ROUTE_UPLOAD_FILE = "/uploadFile";
+	public static final String VIEW_UPLOAD_FILE = "uploadFile";
+	
 	public static final String ROUTE_SHOW_FILES = "/showFiles";
-	public static final String ROUTE_DISPLAY_FILE_UPLOAD_FORM = "/displayFileUploadForm";
+	public static final String VIEW_SHOW_FILES = "showFiles";
 	
 	@RequestMapping(value = ROUTE_UPLOAD_FILE, method = RequestMethod.POST)
 	public ModelAndView uploadFile(Model model, 
@@ -47,8 +51,6 @@ public class FileController {
 			HttpServletRequest req) {
 
 		logger.info("calling route " + ROUTE_UPLOAD_FILE);
-		
-		String route = ROUTE_DISPLAY_FILE_UPLOAD_FORM;
 		
 		if(!result.hasErrors()){
 			
@@ -68,7 +70,6 @@ public class FileController {
 				
 				model.addAttribute("msgUpload","Upload effectué: " + file.getOriginalFilename());
 				
-				route = ROUTE_SHOW_FILES;
 			} catch (IOException e) {
 				logger.error("Exception raised:",e);
 				model.addAttribute("msgUpload","Erreur lors de l'envoi du fichier.");
@@ -76,8 +77,19 @@ public class FileController {
 			
 		}
 		
-		return new ModelAndView(route, model.asMap());
-		
+		return new ModelAndView(VIEW_SHOW_FILES, model.asMap());		
 	}	
+	
+	@RequestMapping(value = ROUTE_SHOW_FILES, method = RequestMethod.GET)
+	public ModelAndView showFiles(Model model, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		
+		logger.info("calling route " + ROUTE_SHOW_FILES);
+		
+		ModelAndView modelAndView = new ModelAndView(VIEW_SHOW_FILES);
+		List<FileEntity> listFiles = this.fileDao.findAll();
+		modelAndView.addObject("listFiles", listFiles);
+		
+		return modelAndView;	
+	}
 }
 

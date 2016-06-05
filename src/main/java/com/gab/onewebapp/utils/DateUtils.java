@@ -7,6 +7,10 @@ import java.util.Locale;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 
+/**
+ * @author gabriel
+ * 
+ */
 public class DateUtils {
 
 	public static String formatDate(Date date, Locale... locale){
