@@ -39,7 +39,6 @@ public class FileController {
 	private FileDao fileDao;
 	
 	public static final String ROUTE_UPLOAD_FILE = "/uploadFile";
-	public static final String VIEW_UPLOAD_FILE = "uploadFile";
 	
 	public static final String ROUTE_SHOW_FILES = "/showFiles";
 	public static final String VIEW_SHOW_FILES = "showFiles";
@@ -48,7 +47,8 @@ public class FileController {
 	public ModelAndView uploadFile(Model model, 
 			@Valid @ModelAttribute("fileUploadForm") FileUploadForm fileUploadForm,
 			BindingResult result, 
-			HttpServletRequest req) {
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse) {
 
 		logger.info("calling route " + ROUTE_UPLOAD_FILE);
 		
@@ -58,7 +58,7 @@ public class FileController {
 				MultipartFile file = fileUploadForm.getFile();
 				byte[] bytes= file.getBytes();
 				
-				String dirPath = req.getSession().getServletContext().getRealPath("") + "/resources/files";
+				String dirPath = httpServletRequest.getSession().getServletContext().getRealPath("") + "/resources/files";
 				String serverFile = dirPath + File.separator + file.getOriginalFilename();
 				
 				//Creation du fichier sur le serveur
@@ -77,7 +77,7 @@ public class FileController {
 			
 		}
 		
-		return new ModelAndView(VIEW_SHOW_FILES, model.asMap());		
+		return this.showFiles(model, httpServletRequest, httpServletResponse);		
 	}	
 	
 	@RequestMapping(value = ROUTE_SHOW_FILES, method = RequestMethod.GET)
@@ -88,6 +88,10 @@ public class FileController {
 		ModelAndView modelAndView = new ModelAndView(VIEW_SHOW_FILES);
 		List<FileEntity> listFiles = this.fileDao.findAll();
 		modelAndView.addObject("listFiles", listFiles);
+		
+		//On ajoute le formulaire d'envoi de fichiers si besoin
+		if (!model.containsAttribute("fileUploadForm"))
+			model.addAttribute("fileUploadForm", new FileUploadForm());
 		
 		return modelAndView;	
 	}
