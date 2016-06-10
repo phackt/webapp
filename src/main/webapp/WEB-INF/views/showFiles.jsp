@@ -24,15 +24,16 @@
 	<br />
 	<h3>Add a new file</h3>
 
-	<form:form method="POST" modelAttribute="fileUploadForm" action="uploadFile" id="idFileUploadForm">
+	<form:form method="POST" modelAttribute="fileUploadForm" action="uploadFile" id="idFileUploadForm" enctype="multipart/form-data">
 		<table>
-			<tr>
+			<tr>					
 				<td><form:label path="description">Description:</form:label></td>
-				<td><form:input path="description" /></td>
 			</tr>
 			<tr>
-				<td><form:label path="price">Name:</form:label></td>
-				<td><form:input path="price" /></td>
+				<td><form:textarea path="description" rows="5" cols="30" /></td>	
+			</tr>
+			<tr>
+				<td><form:input type="file" path="file" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="Save File" /></td>

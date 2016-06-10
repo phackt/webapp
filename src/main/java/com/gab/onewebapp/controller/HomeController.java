@@ -35,15 +35,15 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	public static final String ROUTE_HOME = "/home";
+	public static final String ROUTE_HOME = "/";
 	public static final String VIEW_HOME = "home";
 	
-	@RequestMapping(value = ROUTE_HOME, method = RequestMethod.GET)
-	public ModelAndView home(Model model, HttpServletRequest req, HttpServletResponse httpServletResponse) {
+	@RequestMapping(value = {ROUTE_HOME}, method = RequestMethod.GET)
+	public String home(Model model, HttpServletRequest req, HttpServletResponse httpServletResponse) {
 
 		logger.info("calling route " + ROUTE_HOME);
 		
-		return new ModelAndView(VIEW_HOME);	
+		return VIEW_HOME;	
 	}	
 	
 }

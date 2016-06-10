@@ -14,7 +14,7 @@ public class FileUploadForm {
 	@NotNull
 	private MultipartFile file;
 	
-	@Size(min=4,max=200, message="Description trop longue.")
+	@Size(max=200, message="Description trop longue.")
 	private String description = "";
 
 	public FileUploadForm(){

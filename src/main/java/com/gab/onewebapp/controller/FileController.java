@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,9 +44,11 @@ public class FileController {
 	public static final String ROUTE_SHOW_FILES = "/showFiles";
 	public static final String VIEW_SHOW_FILES = "showFiles";
 	
+	
 	@RequestMapping(value = ROUTE_UPLOAD_FILE, method = RequestMethod.POST)
 	public ModelAndView uploadFile(Model model, 
 			@Valid @ModelAttribute("fileUploadForm") FileUploadForm fileUploadForm,
+			@RequestParam("file") MultipartFile upload,
 			BindingResult result, 
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse) {
