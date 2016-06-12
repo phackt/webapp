@@ -22,15 +22,18 @@ public class FileEntity{
 	@GeneratedValue
 	private long id;
 	
-	@Column
+	@Column(nullable = false, length = 255)
 	private String name;
 	
-	@Column(nullable = false, length = 255)
+	@Column(length = 255)
 	private String description;
 
 	@Temporal(TemporalType.DATE)
 	private Date dateUpload = new Date();
 
+	@Column(nullable = false)
+	private Integer version = 1;
+	
 	public FileEntity() {
 	}
 
@@ -75,7 +78,15 @@ public class FileEntity{
 	public void setDateUpload(Date dateUpload) {
 		this.dateUpload = dateUpload;
 	}
-	
+		
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	@Override
 	public String toString() {
 		return "File [name=" + name + ", description=" + description + ", dateUpload=" + DateUtils.formatDate(dateUpload) + "]";
