@@ -42,7 +42,7 @@
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${org.springsecurity-version}</version>
-		</dependency>		
+		</dependency>	
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -239,4 +239,16 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+	    <profile>
+	        <id>dev</id>
+	        <activation>
+	            <activeByDefault>true</activeByDefault>
+	            <property>
+	                <name>profile</name>
+	                <value>dev</value>
+	            </property>
+	        </activation>
+	    </profile>
+    </profiles>
 </project>

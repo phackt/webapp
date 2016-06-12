@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gab.onewebapp.beans.form.FileUploadForm;
+import com.gab.onewebapp.config.ApplicationConfig;
 import com.gab.onewebapp.dao.FileDao;
 import com.gab.onewebapp.model.FileEntity;
 
@@ -39,16 +40,17 @@ public class FileController {
 	@Autowired
 	private FileDao fileDao;
 	
+	@Autowired
+	private ApplicationConfig fileConfig;
+	
 	public static final String ROUTE_UPLOAD_FILE = "/uploadFile";
 	
 	public static final String ROUTE_SHOW_FILES = "/showFiles";
 	public static final String VIEW_SHOW_FILES = "showFiles";
 	
-	
 	@RequestMapping(value = ROUTE_UPLOAD_FILE, method = RequestMethod.POST)
 	public ModelAndView uploadFile(Model model, 
 			@Valid @ModelAttribute("fileUploadForm") FileUploadForm fileUploadForm,
-			@RequestParam("file") MultipartFile upload,
 			BindingResult result, 
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse) {
@@ -61,8 +63,8 @@ public class FileController {
 				MultipartFile file = fileUploadForm.getFile();
 				byte[] bytes= file.getBytes();
 				
-				String dirPath = httpServletRequest.getSession().getServletContext().getRealPath("") + "/resources/files";
-				String serverFile = dirPath + File.separator + file.getOriginalFilename();
+				//TODO: versionner les fichiers de même nom
+				String serverFile = this.fileConfig.getUploadDirPath() + File.separator + file.getOriginalFilename();
 				
 				//Creation du fichier sur le serveur
 				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(serverFile)));
