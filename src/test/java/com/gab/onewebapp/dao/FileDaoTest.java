@@ -51,13 +51,18 @@ public class FileDaoTest {
 	@Test
 	public void should_find_files(){
 		assertNotNull(fileDao.findAll());
-		assertEquals(fileDao.findAll().get(0).getName(), "fichier.txt");
+		assertEquals(fileDao.findAll().get(0).getOriginalFilename(), "fichier.txt");
 		
 		FileEntity fileEntity = fileDao.find("fichier.txt").get(0);
 		assertNotNull(fileEntity);
 		assertNotNull(fileDao.find(fileEntity.getId()));
 		assertNotNull(fileDao.findLike("fichier").get(0));
 		assertNotNull(fileDao.findAll(0,1).get(0));	
+	}
+	
+	@Test
+	public void should_return_max_version_of_files(){
+		assertEquals((long)fileDao.getLastVersion("fichier.txt"), 1L);
 	}
 	
 	@Test

@@ -73,6 +73,9 @@
 	<!-- DAO beans scan -->
 	<context:component-scan base-package="com.gab.onewebapp.dao" />
 	
+	<!-- Service beans scan -->
+	<context:component-scan base-package="com.gab.onewebapp.service" />
+	
 	<!-- Properties beans scan -->
 	<context:component-scan base-package="com.gab.onewebapp.config" />
 	

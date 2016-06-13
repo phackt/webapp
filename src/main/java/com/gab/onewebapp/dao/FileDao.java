@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,17 +59,17 @@ public class FileDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> findLike(String name){
-		return (List<FileEntity>)this.sessionFactory.getCurrentSession().createQuery("FROM FileEntity WHERE name LIKE :name")
-				.setParameter("name", "%" + name + "%")
+	public List<FileEntity> findLike(String originalFilename){
+		return (List<FileEntity>)this.sessionFactory.getCurrentSession().createQuery("FROM FileEntity WHERE originalFilename LIKE :originalFilename")
+				.setParameter("originalFilename", "%" + originalFilename + "%")
 				.list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> find(String name){
-		return (List<FileEntity>)this.sessionFactory.getCurrentSession().createQuery("FROM FileEntity WHERE name=:name")
-				.setParameter("name", name)
+	public List<FileEntity> find(String originalFilename){
+		return (List<FileEntity>)this.sessionFactory.getCurrentSession().createQuery("FROM FileEntity WHERE originalFilename=:originalFilename")
+				.setParameter("originalFilename", originalFilename)
 				.list();
 	}	
 	
@@ -76,6 +77,12 @@ public class FileDao {
 	public long numberOfFiles(){
 		return (Long)this.sessionFactory.getCurrentSession().createCriteria(FileEntity.class).setProjection(Projections.rowCount()).uniqueResult();
 		
+	}
+
+	@Transactional(readOnly=true)
+	public Long getLastVersion(String originalFilename) {
+		return (Long)this.sessionFactory.getCurrentSession().createCriteria(FileEntity.class).add(Restrictions.eq("originalFilename",originalFilename)).setProjection(Projections.max("version")).uniqueResult();
+
 	}
 	
 }

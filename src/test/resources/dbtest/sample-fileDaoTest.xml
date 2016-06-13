@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<FileEntity id="0" name="fichier.txt" description="fichier de test"/>
+	<FileEntity id="0" originalFilename="fichier.txt" storedFilename="fichier.txt" description="fichier de test" version="1" dateUpload="2016-01-01" />
 </dataset>

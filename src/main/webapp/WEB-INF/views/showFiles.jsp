@@ -48,12 +48,14 @@
 		<tr>
 			<th>Description</th>
 			<th>Name</th>
+			<th>Version</th>
 			<th>Date Upload</th>
 		</tr>
 		<c:forEach var="file" items="${listFiles}">
 			<tr>
 				<td><c:out value="${file.description}" /></td>
 				<td><c:out value="${file.name}" /></td>
+				<td><c:out value="${file.version}" /></td>
 				<td>
 					<fmt:formatDate value="${file.dateUpload}" pattern="dd/MM/yyyy" />
 				</td>

@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.gab.onewebapp.config.ApplicationConfig;
 import com.gab.onewebapp.dao.FileDao;
 import com.gab.onewebapp.model.FileEntity;
 
@@ -50,6 +51,9 @@ public class FileControllerTest {
 	@Autowired
 	private FileDao fileDao;
 	
+	@Autowired
+	private ApplicationConfig appConfig;
+	
 	private MockMvc mockMvc;
 	
 	@Before
@@ -59,7 +63,7 @@ public class FileControllerTest {
 	
 	@After
 	public void tearDown(){
-		String filesUploadedPath = wac.getServletContext().getRealPath("") + "/resources/files";
+		String filesUploadedPath = this.appConfig.getUploadDirPath();
 		try {
 			FileUtils.cleanDirectory(new File(filesUploadedPath));
 		} catch (IOException e) {

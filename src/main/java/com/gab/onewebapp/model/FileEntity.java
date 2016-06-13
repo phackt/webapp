@@ -23,27 +23,32 @@ public class FileEntity{
 	private long id;
 	
 	@Column(nullable = false, length = 255)
-	private String name;
+	private String originalFilename;
+	
+	@Column(nullable = false, length = 255)
+	private String storedFilename;
 	
 	@Column(length = 255)
 	private String description;
 
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dateUpload = new Date();
 
 	@Column(nullable = false)
-	private Integer version = 1;
+	private long version = 1;
 	
 	public FileEntity() {
 	}
 
-	public FileEntity(String name, String description){
-		this.name = name;
+	public FileEntity(String originalFilename, String storedFilename, String description){
+		this.originalFilename = originalFilename;
+		this.storedFilename = storedFilename;
 		this.description = description;
 	}
 	
-	public FileEntity(String name, String description, Date dateUpload){
-		this(name, description);
+	public FileEntity(String originalFilename, String storedFilename, String description, Date dateUpload){
+		this(originalFilename, storedFilename, description);
 		this.dateUpload = dateUpload;
 	}
 	
@@ -55,12 +60,20 @@ public class FileEntity{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getOriginalFilename() {
+		return originalFilename;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setOriginalFilename(String originalFilename) {
+		this.originalFilename = originalFilename;
+	}
+
+	public String getStoredFilename() {
+		return storedFilename;
+	}
+
+	public void setStoredFilename(String storedFilename) {
+		this.storedFilename = storedFilename;
 	}
 
 	public String getDescription() {
@@ -79,22 +92,22 @@ public class FileEntity{
 		this.dateUpload = dateUpload;
 	}
 		
-	public Integer getVersion() {
+	public long getVersion() {
 		return version;
 	}
 
-	public void setVersion(Integer version) {
+	public void setVersion(long version) {
 		this.version = version;
 	}
 
 	@Override
 	public String toString() {
-		return "File [name=" + name + ", description=" + description + ", dateUpload=" + DateUtils.formatDate(dateUpload) + "]";
+		return "File [name=" + originalFilename + ", description=" + description + ", dateUpload=" + DateUtils.formatDate(dateUpload) + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return (int) (this.id * this.name.hashCode());
+		return (int) (this.id * this.originalFilename.hashCode());
 	}
 
 	@Override

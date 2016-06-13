@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:config/application-dev.properties")
 public class ApplicationConfig {
 
+	public static final Integer MAX_FILENAME_LENGTH = 255;
+	
 	@NotNull
 	@Value("${file.uploadDirPath}")
 	private String uploadDirPath;

@@ -1,8 +1,5 @@
 package com.gab.onewebapp.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,14 +16,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gab.onewebapp.beans.form.FileUploadForm;
-import com.gab.onewebapp.config.ApplicationConfig;
-import com.gab.onewebapp.dao.FileDao;
 import com.gab.onewebapp.model.FileEntity;
+import com.gab.onewebapp.service.FileService;
 
 /**
  * @author gabriel
@@ -35,14 +30,11 @@ import com.gab.onewebapp.model.FileEntity;
 @Controller
 public class FileController {
 
+	@Autowired
+	public FileService fileService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
-	
-	@Autowired
-	private FileDao fileDao;
-	
-	@Autowired
-	private ApplicationConfig fileConfig;
-	
+		
 	public static final String ROUTE_UPLOAD_FILE = "/uploadFile";
 	
 	public static final String ROUTE_SHOW_FILES = "/showFiles";
@@ -60,19 +52,9 @@ public class FileController {
 		if(!result.hasErrors()){
 			
 			try {
+
 				MultipartFile file = fileUploadForm.getFile();
-				byte[] bytes= file.getBytes();
-				
-				//TODO: versionner les fichiers de même nom
-				String serverFile = this.fileConfig.getUploadDirPath() + File.separator + file.getOriginalFilename();
-				
-				//Creation du fichier sur le serveur
-				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(serverFile)));
-				bos.write(bytes);
-				bos.close();
-				
-				fileDao.saveOrUpdate(new FileEntity(file.getOriginalFilename(),fileUploadForm.getDescription()));
-				
+				fileService.saveOrUpdate(file.getBytes(), file.getOriginalFilename(),fileUploadForm.getDescription());				
 				model.addAttribute("msgUpload","Upload effectué: " + file.getOriginalFilename());
 				
 			} catch (IOException e) {
@@ -91,8 +73,8 @@ public class FileController {
 		logger.info("calling route " + ROUTE_SHOW_FILES);
 		
 		ModelAndView modelAndView = new ModelAndView(VIEW_SHOW_FILES);
-		List<FileEntity> listFiles = this.fileDao.findAll();
-		modelAndView.addObject("listFiles", listFiles);
+
+		modelAndView.addObject("listFiles", this.fileService.findAll());
 		
 		//On ajoute le formulaire d'envoi de fichiers si besoin
 		if (!model.containsAttribute("fileUploadForm"))
