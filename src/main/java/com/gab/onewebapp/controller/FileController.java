@@ -1,7 +1,6 @@
 package com.gab.onewebapp.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +15,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gab.onewebapp.beans.form.FileUploadForm;
-import com.gab.onewebapp.model.FileEntity;
 import com.gab.onewebapp.service.FileService;
 
 /**
@@ -30,9 +29,6 @@ import com.gab.onewebapp.service.FileService;
 @Controller
 public class FileController {
 
-	@Autowired
-	public FileService fileService;
-	
 	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 		
 	public static final String ROUTE_UPLOAD_FILE = "/uploadFile";
@@ -40,6 +36,15 @@ public class FileController {
 	public static final String ROUTE_SHOW_FILES = "/showFiles";
 	public static final String VIEW_SHOW_FILES = "showFiles";
 	
+	public static final String ROUTE_DELETE_FILE = "/deleteFile";
+	public static final String ROUTE_UPDATE_FILE = "/updateFile";
+	
+	@Autowired
+	public FileService fileService;
+	
+	//TODO: http://www.baeldung.com/role-and-privilege-for-spring-security-registration
+	//TODO: http://www.mkyong.com/spring-security/spring-security-form-login-using-database/
+	//TODO: access static route name in jsp
 	@RequestMapping(value = ROUTE_UPLOAD_FILE, method = RequestMethod.POST)
 	public ModelAndView uploadFile(Model model, 
 			@Valid @ModelAttribute("fileUploadForm") FileUploadForm fileUploadForm,
@@ -55,11 +60,11 @@ public class FileController {
 
 				MultipartFile file = fileUploadForm.getFile();
 				fileService.saveOrUpdate(file.getBytes(), file.getOriginalFilename(),fileUploadForm.getDescription());				
-				model.addAttribute("msgUpload","Upload effectué: " + file.getOriginalFilename());
+				model.addAttribute("msgFileController","Upload effectué: " + file.getOriginalFilename());
 				
 			} catch (IOException e) {
 				logger.error("Exception raised:",e);
-				model.addAttribute("msgUpload","Erreur lors de l'envoi du fichier.");
+				model.addAttribute("msgFileController","Erreur lors de l'envoi du fichier.");
 			}
 			
 		}
@@ -81,6 +86,17 @@ public class FileController {
 			model.addAttribute("fileUploadForm", new FileUploadForm());
 		
 		return modelAndView;	
+	}
+	
+	@RequestMapping(value = ROUTE_DELETE_FILE, method = RequestMethod.GET)
+	public ModelAndView deleteFile(Model model, @RequestParam("id")Long id, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		
+		logger.info("calling route " + ROUTE_DELETE_FILE);
+		
+		this.fileService.deleteFile(id);
+		model.addAttribute("msgFileController","Fichier supprimé avec succès");
+		
+		return this.showFiles(model, httpServletRequest, httpServletResponse);		
 	}
 }
 

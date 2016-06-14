@@ -9,14 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.gab.onewebapp.utils.DateUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 /**
  * @author gabriel
  * 
  */
 @Entity
-public class FileEntity{
+public class FileEntity {
 
 	@Id
 	@GeneratedValue
@@ -102,7 +103,7 @@ public class FileEntity{
 
 	@Override
 	public String toString() {
-		return "File [name=" + originalFilename + ", description=" + description + ", dateUpload=" + DateUtils.formatDate(dateUpload) + "]";
+		return ReflectionToStringBuilder.toString(this);	
 	}
 
 	@Override
@@ -112,16 +113,24 @@ public class FileEntity{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+		/*
+		 * Une solution serait d'utiliser la réflection avec la lib apache mais + lent
+		 * et il n'est pas nécessaire de tester tous les champs, à minima ceux utilisé
+		 * dans le hashCode
+		 * 
+		 * return EqualsBuilder.reflectionEquals(this, obj);
+		 */
+		if (obj == null) { return false; }
+		if (obj == this) { return true; }
+		if (obj.getClass() != this.getClass()) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		FileEntity other = (FileEntity) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		return new EqualsBuilder()
+			.appendSuper(super.equals(obj))
+			.append(this.getId(), other.getId())
+			.append(this.getOriginalFilename(), other.getOriginalFilename())
+			.isEquals();
 	}
 }
 

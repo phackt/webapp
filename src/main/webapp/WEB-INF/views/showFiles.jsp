@@ -38,9 +38,11 @@
 			<tr>
 				<td colspan="2"><input type="submit" value="Save File" /></td>
 			</tr>
-			<tr>
-				<td>${msgUpload}</td>
-			</tr>
+			<c:if test="${not empty msgFileController}">
+				<tr>
+					<td>${msgFileController}</td>
+				</tr>	
+			</c:if>
 		</table>
 	</form:form>
 
@@ -50,26 +52,20 @@
 			<th>Name</th>
 			<th>Version</th>
 			<th>Date Upload</th>
+			<th></th>
 		</tr>
 		<c:forEach var="file" items="${listFiles}">
 			<tr>
 				<td><c:out value="${file.description}" /></td>
-				<td><c:out value="${file.name}" /></td>
+				<td><c:out value="${file.originalFilename}" /></td>
 				<td><c:out value="${file.version}" /></td>
 				<td>
 					<fmt:formatDate value="${file.dateUpload}" pattern="dd/MM/yyyy" />
 				</td>
 				<td>
-<!-- 					<a class="deleteId" -->
-<%-- 					href="deleteProduct?productId=${product.id}">Delete</a> <a --%>
-<%-- 					href="updateProduct?productId=${product.id}">Update</a></td> --%>
+					<a class="deleteId" href="deleteFile?id=${file.id}">Delete</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
-
-<!-- 	<br /> Envoi d'un nouveau fichier -->
-<!-- 	<form:form method="POST" action="uploadFile" enctype="multipart/form-data"> -->
-<!-- 		<input type="file" name="file" /> -->
-<!-- 		<input type="submit" value="Upload file" /> -->
-<!-- 	</form:form> -->
 </html>

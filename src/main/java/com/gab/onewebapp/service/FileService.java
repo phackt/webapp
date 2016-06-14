@@ -66,4 +66,9 @@ public class FileService {
 	public List<FileEntity> findAll() {
 		return this.fileDao.findAll();
 	}
+
+	public void deleteFile(Long id) {
+		FileEntity fileToDelete = this.fileDao.find(id);
+		this.fileDao.delete(fileToDelete);
+	}
 }

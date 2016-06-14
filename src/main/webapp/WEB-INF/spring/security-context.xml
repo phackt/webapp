@@ -9,14 +9,22 @@
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 		
 	<security:http auto-config="true">
+		<security:intercept-url pattern="/login*" access="permitAll" />
 		<security:intercept-url pattern="/*" access="hasRole('ROLE_USER')" />
-		<security:logout logout-success-url="/logout" />
+		<security:form-login 
+			login-page="/login" 
+			default-target-url="/home"
+			authentication-failure-url="/login?action=error"
+			username-parameter="username"
+			password-parameter="password" />
+		<security:logout logout-url="/j_spring_security_logout" logout-success-url="/login?action=logout"/>
 	</security:http>
 	
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
-				<security:user name="admin" password="admin" authorities="ROLE_USER" />
+				<security:user name="user" password="user" authorities="ROLE_USER" />
+				<security:user name="admin" password="admin" authorities="ROLE_USER,ROLE_ADMIN" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>	

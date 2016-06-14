@@ -15,6 +15,7 @@
 		<org.springsecurity-version>4.1.0.RELEASE</org.springsecurity-version>
 	</properties>
 	<dependencies>
+	
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -42,7 +43,8 @@
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${org.springsecurity-version}</version>
-		</dependency>	
+		</dependency>
+		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -156,7 +158,7 @@
 		    <version>2.3</version>
 		</dependency>
 
-		<!-- Test -->
+		<!-- Test (maven scope test)-->
 		<!-- http://mvnrepository.com/artifact/org.springframework/spring-test -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
@@ -173,6 +175,12 @@
 		    		<groupId>junit</groupId>
 		    	</exclusion>
 		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-test</artifactId>
+		    <version>${org.springsecurity-version}</version>
+		    <scope>test</scope>
 		</dependency>
 		<dependency>
 		    <groupId>junit</groupId>
