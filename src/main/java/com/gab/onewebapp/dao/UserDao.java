@@ -4,12 +4,10 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gab.onewebapp.model.FileEntity;
 import com.gab.onewebapp.model.UserEntity;
 
 /**
@@ -49,9 +47,9 @@ public class UserDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public UserEntity findByLogin(String login){
-		return (UserEntity)this.sessionFactory.getCurrentSession().createQuery("FROM UserEntity WHERE login=:login")
-				.setParameter("login", login)
+	public UserEntity findByUsername(String username){
+		return (UserEntity)this.sessionFactory.getCurrentSession().createQuery("FROM UserEntity WHERE username=:username")
+				.setParameter("username", username)
 				.uniqueResult();
 	}	
 	

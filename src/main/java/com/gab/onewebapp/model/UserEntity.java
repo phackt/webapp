@@ -1,9 +1,14 @@
 package com.gab.onewebapp.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -20,13 +25,16 @@ public class UserEntity {
 	private long id;
 	
 	@Column(nullable = false, unique = true, length = 255)
-	private String login;
+	private String username;
 	
 	@Column(nullable = false, length = 255)
 	private String password;
 	
 	@Column(nullable = false)
 	private boolean enabled = true;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<UserProfileEntity> userProfiles = new HashSet<UserProfileEntity>();
 	
 	public UserEntity() {
 	}
@@ -39,12 +47,12 @@ public class UserEntity {
 		this.id = id;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -63,6 +71,14 @@ public class UserEntity {
 		this.enabled = enabled;
 	}
 
+	public Set<UserProfileEntity> getUserProfiles() {
+		return userProfiles;
+	}
+
+	public void setUserProfiles(Set<UserProfileEntity> userProfiles) {
+		this.userProfiles = userProfiles;
+	}
+
 	@Override
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this);	
@@ -70,7 +86,7 @@ public class UserEntity {
 
 	@Override
 	public int hashCode() {
-		return (int) (this.id * this.login.hashCode());
+		return (int) (this.id * this.username.hashCode());
 	}
 
 	@Override
@@ -91,7 +107,7 @@ public class UserEntity {
 		return new EqualsBuilder()
 			.appendSuper(super.equals(obj))
 			.append(this.getId(), other.getId())
-			.append(this.getLogin(), other.getLogin())
+			.append(this.getUsername(), other.getUsername())
 			.isEquals();
 	}
 }

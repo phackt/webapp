@@ -8,9 +8,11 @@ import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gab.onewebapp.config.ApplicationConfig;
 import com.gab.onewebapp.dao.FileDao;
@@ -18,6 +20,8 @@ import com.gab.onewebapp.model.FileEntity;
 
 @Service
 public class FileService {
+
+	private static final Logger logger = LoggerFactory.getLogger(FileService.class);
 
 	@Autowired
 	private FileDao fileDao;
@@ -28,6 +32,7 @@ public class FileService {
 	public FileService(){
 	}
 	
+	@Transactional
 	public void saveOrUpdate(byte[] bytesFilename, String originalFilename, String description) throws IOException{
 		
 		String storedFilename = originalFilename;
@@ -49,6 +54,8 @@ public class FileService {
 			//On met à jour l'entité à créer
 			newFileEntity.setStoredFilename(storedFilename);
 			newFileEntity.setVersion(version);
+			
+			logger.info("file " + originalFilename + " already exists, new version is " + version);
 		}
 		
 		//Nom du fichier à sauvegarder
@@ -63,10 +70,12 @@ public class FileService {
 		
 	}
 
+	@Transactional(readOnly = true)
 	public List<FileEntity> findAll() {
 		return this.fileDao.findAll();
 	}
 
+	@Transactional
 	public void deleteFile(Long id) {
 		FileEntity fileToDelete = this.fileDao.findById(id);
 		this.fileDao.delete(fileToDelete);
