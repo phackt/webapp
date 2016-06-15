@@ -30,8 +30,10 @@ public class LoginController {
 	@RequestMapping(value = ROUTE_LOGIN, method = RequestMethod.GET)
 	public String showLogin(Model model, 
 			@RequestParam(value = "action", required = false) String action,
-			HttpServletRequest req, 
-			HttpServletResponse resp) {
+			HttpServletRequest httpServletRequest, 
+			HttpServletResponse httpServletResponse) {
+
+		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
 
 		String msgLoginController = "Please entre your username and password:";
 		

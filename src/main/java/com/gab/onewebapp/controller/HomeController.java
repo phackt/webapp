@@ -40,9 +40,9 @@ public class HomeController {
 	public static final String VIEW_HOME = "home";
 	
 	@RequestMapping(value = {ROUTE_HOME, ROUTE_ROOT}, method = RequestMethod.GET)
-	public String home(Model model, HttpServletRequest req, HttpServletResponse httpServletResponse) {
+	public String home(Model model, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 
-		logger.info("calling route " + ROUTE_HOME);
+		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
 		
 		return VIEW_HOME;	
 	}	

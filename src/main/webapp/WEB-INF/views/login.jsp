@@ -12,22 +12,24 @@
 		<div class="msg">${msgLoginController}</div>
 	</c:if>
 		
-	<form:form name="loginForm" action="<c:url value='/j_spring_security_check' />" method="POST">
+	<form name="loginForm" action="login" method="POST">
 		<table>
 			<tr>
-				<td><form:label path="username">Username:</form:label></td>
-				<td><form:input path="username" /></td>
+				<td>Username:</td>
+				<td><input type='text' name='username' value=''></td>
 			</tr>
 			<tr>
-				<td><form:label path="password">Password:</form:label></td>
-				<td><form:password path="password" /></td>
+				<td>Password:</td>
+				<td><input type='password' name='password' /></td>
 			</tr>
 
 			<tr>
 				<td colspan="2"><input type="submit" value="Submit" /></td>
 			</tr>
 		</table>
-	</form:form>
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
 
 </body>
 </html>

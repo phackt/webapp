@@ -34,7 +34,7 @@ public class FileService {
 		FileEntity newFileEntity = new FileEntity(originalFilename, storedFilename, description);
 		
 		//On regarde si un fichier du même nom existe => versionning
-		if(!(fileDao.find(originalFilename)).isEmpty()){
+		if(!(fileDao.findByOriginalFilename(originalFilename)).isEmpty()){
 			Long version = fileDao.getLastVersion(originalFilename) + 1;
 			
 			String addVersioningString = "_v" 
@@ -68,7 +68,7 @@ public class FileService {
 	}
 
 	public void deleteFile(Long id) {
-		FileEntity fileToDelete = this.fileDao.find(id);
+		FileEntity fileToDelete = this.fileDao.findById(id);
 		this.fileDao.delete(fileToDelete);
 	}
 }

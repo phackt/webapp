@@ -52,7 +52,7 @@ public class FileController {
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse) {
 
-		logger.info("calling route " + ROUTE_UPLOAD_FILE);
+		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
 		
 		if(!result.hasErrors()){
 			
@@ -75,7 +75,7 @@ public class FileController {
 	@RequestMapping(value = ROUTE_SHOW_FILES, method = RequestMethod.GET)
 	public ModelAndView showFiles(Model model, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
-		logger.info("calling route " + ROUTE_SHOW_FILES);
+		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
 		
 		ModelAndView modelAndView = new ModelAndView(VIEW_SHOW_FILES);
 
@@ -91,7 +91,7 @@ public class FileController {
 	@RequestMapping(value = ROUTE_DELETE_FILE, method = RequestMethod.GET)
 	public ModelAndView deleteFile(Model model, @RequestParam("id")Long id, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
-		logger.info("calling route " + ROUTE_DELETE_FILE);
+		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
 		
 		this.fileService.deleteFile(id);
 		model.addAttribute("msgFileController","Fichier supprimé avec succès");

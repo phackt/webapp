@@ -53,7 +53,7 @@ public class FileDao {
 	
 	
 	@Transactional(readOnly=true)
-	public FileEntity find(long id){
+	public FileEntity findById(long id){
 		return (FileEntity)this.sessionFactory.getCurrentSession().get(FileEntity.class, id);
 	}
 	
@@ -67,7 +67,7 @@ public class FileDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> find(String originalFilename){
+	public List<FileEntity> findByOriginalFilename(String originalFilename){
 		return (List<FileEntity>)this.sessionFactory.getCurrentSession().createQuery("FROM FileEntity WHERE originalFilename=:originalFilename")
 				.setParameter("originalFilename", originalFilename)
 				.list();

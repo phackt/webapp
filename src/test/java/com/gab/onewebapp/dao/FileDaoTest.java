@@ -53,9 +53,9 @@ public class FileDaoTest {
 		assertNotNull(fileDao.findAll());
 		assertEquals(fileDao.findAll().get(0).getOriginalFilename(), "fichier.txt");
 		
-		FileEntity fileEntity = fileDao.find("fichier.txt").get(0);
+		FileEntity fileEntity = fileDao.findByOriginalFilename("fichier.txt").get(0);
 		assertNotNull(fileEntity);
-		assertNotNull(fileDao.find(fileEntity.getId()));
+		assertNotNull(fileDao.findById(fileEntity.getId()));
 		assertNotNull(fileDao.findLike("fichier").get(0));
 		assertNotNull(fileDao.findAll(0,1).get(0));	
 	}
@@ -67,10 +67,10 @@ public class FileDaoTest {
 	
 	@Test
 	public void should_update_files(){
-		FileEntity fileEntity = fileDao.find("fichier.txt").get(0);
+		FileEntity fileEntity = fileDao.findByOriginalFilename("fichier.txt").get(0);
 		fileEntity.setDescription("updated");
 		fileDao.saveOrUpdate(fileEntity);
-		assertEquals(fileDao.find(fileEntity.getId()).getDescription(), "updated");
+		assertEquals(fileDao.findById(fileEntity.getId()).getDescription(), "updated");
 	}
 	
 	@Test
@@ -80,11 +80,11 @@ public class FileDaoTest {
 	
 	@Test
 	public void should_delete_files(){
-		FileEntity fileEntity = fileDao.find("fichier.txt").get(0);
+		FileEntity fileEntity = fileDao.findByOriginalFilename("fichier.txt").get(0);
 		Long id = fileEntity.getId();
 		fileDao.delete(fileEntity);
 		
 		List<FileEntity> list = fileDao.findAll();
-		assertNull(fileDao.find(id));
+		assertNull(fileDao.findById(id));
 	}
 }

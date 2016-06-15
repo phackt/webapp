@@ -67,7 +67,7 @@ public class FileServiceTest {
 	@Test
 	public void should_delete_file_with_id(){
 		this.fileService.deleteFile(0L);
-		assertNull(this.fileDao.find(0));
+		assertNull(this.fileDao.findById(0));
 	}
 	
 }
