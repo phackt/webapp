@@ -21,17 +21,9 @@
 	</security:http>
 	
 	<security:authentication-manager>
-<!-- 		<security:authentication-provider> -->
-<!-- 			<security:user-service> -->
-<!-- 				<security:user name="user" password="user" authorities="ROLE_USER" /> -->
-<!-- 				<security:user name="admin" password="admin" authorities="ROLE_USER,ROLE_ADMIN" /> -->
-<!-- 			</security:user-service> -->
-<!-- 		</security:authentication-provider> -->
 		<security:authentication-provider user-service-ref="customUserDetailsService">
-            <security:password-encoder ref="bcryptEncoder"/>
+            <security:password-encoder ref="passwordEncoder"/>
         </security:authentication-provider>
 	</security:authentication-manager>	
-	
-	<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-	
+		
 </beans:beans>

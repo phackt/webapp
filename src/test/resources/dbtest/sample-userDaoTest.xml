@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<UserEntity id="0" username="user" password="user" enabled="true"  />
+	<UserProfileEntity id="0" userProfileType="USER"  />
+	<user_profile user_id="0" profile_id="0" />	
+</dataset>

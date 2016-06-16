@@ -58,7 +58,7 @@ public class LoginControllerTest {
 		try {
 			this.mockMvc.perform(get(HomeController.ROUTE_HOME).with(user("user").password("user").roles("USER")))
 			.andExpect(status().isOk())
-			.andExpect(view().name(HomeController.VIEW_HOME));
+			.andExpect(view().name(HomeController.VIEW_HOME));			
 			
 		} catch (Exception e) {
 			logger.error("Exception raised:",e);

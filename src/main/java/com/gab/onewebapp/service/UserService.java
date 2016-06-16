@@ -12,7 +12,7 @@ import com.gab.onewebapp.model.UserEntity;
 public class UserService {
 
 	@Autowired
-    private UserDao dao;
+    private UserDao userDao;
      
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -20,16 +20,23 @@ public class UserService {
     @Transactional
     public void saveOrUpdate(UserEntity user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        dao.saveOrUpdate(user);
-    }
-    
-    @Transactional(readOnly = true)
-    public UserEntity findById(int id) {
-        return dao.findById(id);
+        userDao.saveOrUpdate(user);
     }
  
     @Transactional(readOnly = true)
     public UserEntity findByUsername(String username) {
-        return dao.findByUsername(username);
+        return userDao.findByUsername(username);
     }
+    
+	@Transactional
+	public void deleteUser(Long id) {
+		UserEntity fileToDelete = this.userDao.findById(id);
+		this.userDao.delete(fileToDelete);
+	}
+		
+	@Transactional(readOnly=true)
+	public UserEntity findById(long id){
+		return this.userDao.findById(id); 
+	}
+    
 }

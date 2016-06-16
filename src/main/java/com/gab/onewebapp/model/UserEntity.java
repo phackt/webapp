@@ -3,12 +3,16 @@ package com.gab.onewebapp.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -18,6 +22,7 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
  * 
  */
 @Entity
+@Table(name = "TUSER")
 public class UserEntity {
 
 	@Id
@@ -33,7 +38,11 @@ public class UserEntity {
 	@Column(nullable = false)
 	private boolean enabled = true;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "TUSER_PROFILE", joinColumns = { 
+			@JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { 
+			@JoinColumn(name = "PROFILE_ID", nullable = false, updatable = false) })
 	private Set<UserProfileEntity> userProfiles = new HashSet<UserProfileEntity>();
 	
 	public UserEntity() {
@@ -91,13 +100,7 @@ public class UserEntity {
 
 	@Override
 	public boolean equals(Object obj) {
-		/*
-		 * Une solution serait d'utiliser la réflection avec la lib apache mais + lent
-		 * et il n'est pas nécessaire de tester tous les champs, à minima ceux utilisé
-		 * dans le hashCode
-		 * 
-		 * return EqualsBuilder.reflectionEquals(this, obj);
-		 */
+
 		if (obj == null) { return false; }
 		if (obj == this) { return true; }
 		if (obj.getClass() != this.getClass()) {

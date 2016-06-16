@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -28,7 +29,7 @@ public class LoginController {
 	private MessageSource messageSource;
 
 	@RequestMapping(value = ROUTE_LOGIN, method = RequestMethod.GET)
-	public String showLogin(Model model, 
+	public ModelAndView showLogin(Model model, 
 			@RequestParam(value = "action", required = false) String action,
 			HttpServletRequest httpServletRequest, 
 			HttpServletResponse httpServletResponse) {
@@ -50,8 +51,9 @@ public class LoginController {
 		
 		  
 		model.addAttribute("msgLoginController", msgLoginController);
+		ModelAndView modelAndView = new ModelAndView(VIEW_LOGIN, model.asMap());
 		
-		return VIEW_LOGIN;
+		return modelAndView;
 	}
 }
 

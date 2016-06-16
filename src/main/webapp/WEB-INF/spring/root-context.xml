@@ -57,6 +57,7 @@
 				</prop>
 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.import_files">/database/import.sql</prop>
 			</props>
 		</property>
    </bean>
@@ -66,6 +67,9 @@
 		<property name="sessionFactory" ref="sessionFactory"/>
 		<property name="autodetectDataSource" value="true"/>
 	</bean>
+
+	<!-- Security bean needed in UserService and in Spring Security config - injected before them -->
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
 	<!-- Transactionnal -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>

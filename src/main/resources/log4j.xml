@@ -9,7 +9,19 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+	
+	<appender name="file" class="org.apache.log4j.FileAppender">
+	
+		<param name="file" value="C:\\tmp\\log\\webapp.out" />
+		<param name="immediateFlush" value="true" />
+		<param name="threshold" value="debug" />
+		<param name="append" value="false" />
+	
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern" value="%m%n" />
+		</layout>
 		
+	</appender>	
 		<!-- https://wiki.apache.org/logging-log4j/LogToAppenderByLevel -->
 		
 <!-- 	<appender name="consoleError" class="org.apache.log4j.ConsoleAppender"> -->
@@ -49,11 +61,16 @@
 	<logger name="org.springframework.security">
 		<level value="debug" />
 	</logger>
+	
+	<logger name="org.hibernate.tool.hbm2ddl.SchemaExport">
+		<level value="debug" />
+	</logger>
 
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
+		<appender-ref ref="file" />
 	</root>
 	
 </log4j:configuration>

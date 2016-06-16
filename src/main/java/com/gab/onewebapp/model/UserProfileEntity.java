@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -21,6 +22,7 @@ import com.gab.onewebapp.core.enums.UserProfileType;
  * 
  */
 @Entity
+@Table(name = "TPROFILE")
 public class UserProfileEntity {
 
 	@Id

@@ -1,9 +1,10 @@
 package com.gab.onewebapp.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
-import java.io.IOException;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gab.onewebapp.dao.FileDao;
+import com.gab.onewebapp.core.enums.UserProfileType;
+import com.gab.onewebapp.model.UserEntity;
+import com.gab.onewebapp.model.UserProfileEntity;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
@@ -32,39 +35,36 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @WebAppConfiguration
 @ContextHierarchy({
 	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml"),
-	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml")
+	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"),
+	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/security-context.xml")
 })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 	DirtiesContextTestExecutionListener.class,
 	TransactionalTestExecutionListener.class,
 	DbUnitTestExecutionListener.class })
 @Transactional
-@DatabaseSetup("/dbtest/sample-fileDaoTest.xml")
-public class FileServiceTest {
+@DatabaseSetup("/dbtest/sample-userDaoTest.xml")
+public class UserServiceTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(FileServiceTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
 	@Autowired
-	private FileService fileService;
+	private UserService userService;
 	
 	@Test
-	public void should_version_files(){
-		try {
-			
-			String fileContent = "ceci est le contenu";
-			assertEquals((long)this.fileService.getLastVersion("fichier.txt"), 1L);
-			this.fileService.saveOrUpdate(fileContent.getBytes(), "fichier.txt", "fichier de test");
-			assertEquals((long)this.fileService.getLastVersion("fichier.txt"), 2L);
-			
-		} catch (IOException e) {
-			logger.error("Exception raised:",e);
-		}
+	public void should_get_user_role(){
+		
+		UserEntity userEntity = this.userService.findByUsername("user");
+		Set<UserProfileEntity> userProfiles = userEntity.getUserProfiles();
+		
+		assertFalse(userProfiles.isEmpty());
+		assertEquals(userProfiles.iterator().next().getUserProfileType(), UserProfileType.USER);
 	}
 	
 	@Test
-	public void should_delete_file_with_id(){
-		this.fileService.deleteFile(0L);
-		assertNull(this.fileService.findById(0));
+	public void should_delete_user_with_id(){
+		this.userService.deleteUser(0L);
+		assertNull(this.userService.findById(0));
 	}
 	
 }

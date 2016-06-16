@@ -4,18 +4,11 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.stereotype.Component;
 
 
-@Component
-@Configuration
-@Profile(value={"default","dev"})
-@PropertySource("classpath:config/application-dev.properties")
-public class ApplicationConfig {
+
+public abstract class ApplicationCommonConfig {
 
 	public static final Integer MAX_FILENAME_LENGTH = 255;
 	
@@ -23,6 +16,10 @@ public class ApplicationConfig {
 	@Value("${file.uploadDirPath}")
 	private String uploadDirPath;
 
+	@NotNull
+	@Value("${application.logPath}")
+	private String appLogPath;
+	
 	public String getUploadDirPath() {
 		return uploadDirPath;
 	}
@@ -31,6 +28,14 @@ public class ApplicationConfig {
 		this.uploadDirPath = uploadDirPath;
 	}
 	
+	public String getAppLogPath() {
+		return appLogPath;
+	}
+
+	public void setAppLogPath(String appLogPath) {
+		this.appLogPath = appLogPath;
+	}
+
 	@Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
        return new PropertySourcesPlaceholderConfigurer();

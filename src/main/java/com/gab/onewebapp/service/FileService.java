@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gab.onewebapp.config.ApplicationConfig;
+import com.gab.onewebapp.config.ApplicationDevConfig;
 import com.gab.onewebapp.dao.FileDao;
 import com.gab.onewebapp.model.FileEntity;
 
@@ -27,7 +27,7 @@ public class FileService {
 	private FileDao fileDao;
 	
 	@Autowired
-	private ApplicationConfig appConfig;
+	private ApplicationDevConfig appConfig;
 	
 	public FileService(){
 	}
@@ -48,7 +48,7 @@ public class FileService {
 					+ FilenameUtils.getExtension(originalFilename);
 			
 			storedFilename = 
-					StringUtils.substring(FilenameUtils.removeExtension(originalFilename),0,ApplicationConfig.MAX_FILENAME_LENGTH - addVersioningString.length())
+					StringUtils.substring(FilenameUtils.removeExtension(originalFilename),0,ApplicationDevConfig.MAX_FILENAME_LENGTH - addVersioningString.length())
 					+ addVersioningString;
 			
 			//On met à jour l'entité à créer
@@ -79,5 +79,15 @@ public class FileService {
 	public void deleteFile(Long id) {
 		FileEntity fileToDelete = this.fileDao.findById(id);
 		this.fileDao.delete(fileToDelete);
+	}
+	
+	@Transactional(readOnly=true)
+	public Long getLastVersion(String originalFilename) {
+		return this.fileDao.getLastVersion(originalFilename);
+	}
+	
+	@Transactional(readOnly=true)
+	public FileEntity findById(long id){
+		return this.fileDao.findById(id); 
 	}
 }

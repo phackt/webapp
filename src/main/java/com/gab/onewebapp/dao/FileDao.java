@@ -50,8 +50,7 @@ public class FileDao {
 	public void saveOrUpdate(FileEntity f){
 		this.sessionFactory.getCurrentSession().saveOrUpdate(f);
 	}
-	
-	
+		
 	@Transactional(readOnly=true)
 	public FileEntity findById(long id){
 		return (FileEntity)this.sessionFactory.getCurrentSession().get(FileEntity.class, id);

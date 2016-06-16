@@ -9,7 +9,7 @@
 	<h1>Login page!</h1>
 
 	<c:if test="${not empty msgLoginController}">
-		<div class="msg">${msgLoginController}</div>
+		<div>${msgLoginController}</div>
 	</c:if>
 		
 	<form name="loginForm" action="login" method="POST">

@@ -29,6 +29,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional(readOnly=true)
 	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    	
+    	logger.info("Looking for username: " + username);
         UserEntity user = userService.findByUsername(username);
         
         if(user==null){
