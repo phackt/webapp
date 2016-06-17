@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,12 +61,17 @@ public class FileController {
 			try {
 
 				MultipartFile file = fileUploadForm.getFile();
-				fileService.saveOrUpdate(file.getBytes(), file.getOriginalFilename(),fileUploadForm.getDescription());				
-				model.addAttribute("msgFileController","Upload effectué: " + file.getOriginalFilename());
+				
+				if(!StringUtils.isEmpty(file.getOriginalFilename())){
+					fileService.saveOrUpdate(file.getBytes(), file.getOriginalFilename(),fileUploadForm.getDescription());				
+					model.addAttribute("msgFileController","Upload effectué: " + file.getOriginalFilename());
+				}else{
+					model.addAttribute("msgFileController","Please select a file!");
+				}				
 				
 			} catch (IOException e) {
 				logger.error("Exception raised:",e);
-				model.addAttribute("msgFileController","Erreur lors de l'envoi du fichier.");
+				result.rejectValue("exception", "ioexception.message", "Erreur lors de l'envoi du fichier.");
 			}
 			
 		}
@@ -88,6 +95,7 @@ public class FileController {
 		return modelAndView;	
 	}
 	
+	@PreAuthorize("hasAuthority('PERM_CACA')")
 	@RequestMapping(value = ROUTE_DELETE_FILE, method = RequestMethod.GET)
 	public ModelAndView deleteFile(Model model, @RequestParam("id")Long id, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		

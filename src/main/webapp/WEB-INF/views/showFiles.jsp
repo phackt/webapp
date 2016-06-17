@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ page session="false"%>
 <html>
 <head>
@@ -63,7 +64,9 @@
 					<fmt:formatDate value="${file.dateUpload}" pattern="dd/MM/yyyy" />
 				</td>
 				<td>
-					<a class="deleteId" href="deleteFile?id=${file.id}">Delete</a>
+					<sec:authorize access="hasAuthority('PERM_DELETE_FILE')">
+						<a class="deleteId" href="deleteFile?id=${file.id}">Delete</a>
+					</sec:authorize>
 				</td>
 			</tr>
 		</c:forEach>

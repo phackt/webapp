@@ -9,10 +9,10 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.8</java-version>
-		<org.springframework-version>4.2.6.RELEASE</org.springframework-version>
+		<org.springframework-version>4.3.0.RELEASE</org.springframework-version>
+		<org.springsecurity-version>4.1.0.RELEASE</org.springsecurity-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
-		<org.springsecurity-version>4.1.0.RELEASE</org.springsecurity-version>
 	</properties>
 	<dependencies>
 	
@@ -44,7 +44,22 @@
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${org.springsecurity-version}</version>
 		</dependency>
-		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${org.springsecurity-version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aop</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-core</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

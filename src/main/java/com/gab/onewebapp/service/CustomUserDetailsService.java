@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gab.onewebapp.model.PermissionEntity;
 import com.gab.onewebapp.model.UserEntity;
 import com.gab.onewebapp.model.UserProfileEntity;
 
@@ -43,9 +44,17 @@ public class CustomUserDetailsService implements UserDetailsService {
     private List<GrantedAuthority> getGrantedAuthorities(UserEntity user){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
          
+        //Add Roles
         for(UserProfileEntity userProfile : user.getUserProfiles()){
             authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getUserProfileType()));
+            
+            //Add Permission as Roles - for a best granularity check Spring sample project Contacts with ACL on each object
+            for(PermissionEntity permissionEntity : userProfile.getPermissions()){
+            	authorities.add(new SimpleGrantedAuthority(permissionEntity.getPermissionType().toString()));
+            }
         }
+        
+        
         return authorities;
     }
 }

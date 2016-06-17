@@ -7,7 +7,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
-		
+			
 	<security:http auto-config="true">
 		<security:intercept-url pattern="/login*" access="permitAll" />
 		<security:intercept-url pattern="/*" access="hasRole('ROLE_USER')" />
@@ -17,7 +17,7 @@
 			authentication-failure-url="/login?action=error"
 			username-parameter="username"
 			password-parameter="password" />
-		<security:logout logout-url="/j_spring_security_logout" logout-success-url="/login?action=logout"/>
+		<security:logout logout-url="/logout" logout-success-url="/login?action=logout"/>
 	</security:http>
 	
 	<security:authentication-manager>

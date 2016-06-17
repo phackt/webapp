@@ -3,12 +3,16 @@ package com.gab.onewebapp.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -36,6 +40,13 @@ public class UserProfileEntity {
 	@ManyToMany(mappedBy = "userProfiles")
 	private Set<UserEntity> userEntities = new HashSet<UserEntity>();
 	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "TPROFILE_PERMISSION", joinColumns = { 
+			@JoinColumn(name = "PROFILE_ID", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { 
+			@JoinColumn(name = "PERMISSION_ID", nullable = false, updatable = false) })
+	private Set<PermissionEntity> permissions = new HashSet<PermissionEntity>();
+	
 	public UserProfileEntity() {
 	}
 
@@ -61,6 +72,15 @@ public class UserProfileEntity {
 
 	public void setUserEntities(Set<UserEntity> userEntities) {
 		this.userEntities = userEntities;
+	}
+
+    
+	public Set<PermissionEntity> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(Set<PermissionEntity> permissions) {
+		this.permissions = permissions;
 	}
 
 	@Override
