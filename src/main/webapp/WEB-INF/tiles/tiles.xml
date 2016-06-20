@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <definition name="base.definition" template="/WEB-INF/views/main_template.jsp">
+        <put-attribute name="title" value="OneWebApp Spring application"></put-attribute>	   
+   		<put-attribute name="header" value="/WEB-INF/views/fragment/header.jsp"></put-attribute>
+        <put-attribute name="body" value=""></put-attribute>
+        <put-attribute name="footer" value="/WEB-INF/views/fragment/footer.jsp"></put-attribute>
+        <put-list-attribute name="javascripts">
+	        <add-attribute value="/resources/css/vendor/bootstrap.min.css" />
+	        <add-attribute value="/resources/css/vendor/bootstrap-theme.min.css" />
+   		</put-list-attribute>     
+	    <put-list-attribute name="stylesheets">
+	        <add-attribute value="/resources/js/vendor/jquery-2.2.4.min.js" />
+	        <add-attribute value="/resources/js/vendor/bootstrap.min.js" />
+   		</put-list-attribute>
+    </definition>
+    
+    <definition name="login" extends="base.definition">
+        <put-attribute name="title" value="Login Page"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/views/login.jsp"></put-attribute>
+        <put-list-attribute name="stylesheets" inherit="true">
+        	<add-attribute value="/resources/css/signin.css" />
+    	</put-list-attribute>
+    </definition>
+    
+    <definition name="home" extends="base.definition">
+        <put-attribute name="title" value="Home Page"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/views/home.jsp"></put-attribute>
+    </definition>
+    
+    <definition name="showFiles" extends="base.definition">
+        <put-attribute name="title" value="Show Files Page"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/views/showFiles.jsp"></put-attribute>
+    </definition>
+</tiles-definitions>

@@ -1,11 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="false" %>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
+<%@ page contentType="text/html;charset=UTF-8"%>
+
 <h1>
 	ALL links to features  
 </h1>
@@ -18,5 +14,4 @@
 <P>  Describe all features here. </P>
 <a href="showFiles">Upload files</a>
 <br />
-</body>
-</html>
+
