@@ -29,20 +29,20 @@ public class UserEntity {
 	@GeneratedValue
 	private long id;
 	
-	@Column(nullable = false, unique = true, length = 255)
+	@Column(name="username", nullable = false, unique = true, length = 255)
 	private String username;
 	
-	@Column(nullable = false, length = 255)
+	@Column(name="password", nullable = false, length = 255)
 	private String password;
 	
-	@Column(nullable = false)
+	@Column(name="enabled", nullable = false)
 	private boolean enabled = true;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "TUSER_PROFILE", joinColumns = { 
-			@JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, 
+			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { 
-			@JoinColumn(name = "PROFILE_ID", nullable = false, updatable = false) })
+			@JoinColumn(name = "profile_id", nullable = false, updatable = false) })
 	private Set<UserProfileEntity> userProfiles = new HashSet<UserProfileEntity>();
 	
 	public UserEntity() {

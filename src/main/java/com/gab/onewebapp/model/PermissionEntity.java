@@ -30,7 +30,7 @@ public class PermissionEntity {
 	private long id;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name="permission_type", nullable = false)
     private PermissionType permissionType;
 	
 	@ManyToMany(mappedBy = "permissions")

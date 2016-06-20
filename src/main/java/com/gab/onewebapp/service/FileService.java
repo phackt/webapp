@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +91,15 @@ public class FileService {
 	@Transactional(readOnly=true)
 	public FileEntity findById(long id){
 		return this.fileDao.findById(id); 
+	}
+	
+	@Transactional(readOnly=true)
+	public File findStoredOnServerById(long id) {
+		FileEntity fileEntity = this.fileDao.findById(id); 
+		if(fileEntity != null && !StringUtils.isEmpty(fileEntity.getStoredFilename())){
+			return new File(this.appConfig.getUploadDirPath() + File.separator + fileEntity.getStoredFilename());
+		}
+
+		return null;
 	}
 }

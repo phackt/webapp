@@ -23,16 +23,16 @@ public class FileEntity {
 	@GeneratedValue
 	private long id;
 	
-	@Column(nullable = false, length = 255)
+	@Column(name="original_filename", nullable = false, length = 255)
 	private String originalFilename;
 	
-	@Column(nullable = false, length = 255)
+	@Column(name="stored_filename", nullable = false, length = 255)
 	private String storedFilename;
 	
-	@Column(length = 255)
+	@Column(name="description", length = 255)
 	private String description;
 
-	@Column(nullable = false)
+	@Column(name="date_upload", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dateUpload = new Date();
 

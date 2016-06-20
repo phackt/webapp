@@ -34,7 +34,7 @@ public class UserProfileEntity {
 	private long id;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name="user_profile_type", nullable = false)
     private UserProfileType userProfileType;
 	
 	@ManyToMany(mappedBy = "userProfiles")
@@ -42,9 +42,9 @@ public class UserProfileEntity {
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "TPROFILE_PERMISSION", joinColumns = { 
-			@JoinColumn(name = "PROFILE_ID", nullable = false, updatable = false) }, 
+			@JoinColumn(name = "profile_id", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { 
-			@JoinColumn(name = "PERMISSION_ID", nullable = false, updatable = false) })
+			@JoinColumn(name = "permission_id", nullable = false, updatable = false) })
 	private Set<PermissionEntity> permissions = new HashSet<PermissionEntity>();
 	
 	public UserProfileEntity() {

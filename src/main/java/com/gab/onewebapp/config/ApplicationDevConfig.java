@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class ApplicationDevConfig extends ApplicationCommonConfig {
 
 	//TODO:hibernate tools lancer les creation de table à partir des sql et insérer le user Admin
-	//TODO:effectuer la hiérarchie des roles USER/ADMIN
 	
 //	@Autowired
 //	DataSource dataSource;
