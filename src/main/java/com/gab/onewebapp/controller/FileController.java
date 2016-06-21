@@ -32,7 +32,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gab.onewebapp.beans.form.FileUploadForm;
+import com.gab.onewebapp.beans.form.FileUpload;
+import com.gab.onewebapp.beans.form.FilesUploadForm;
 import com.gab.onewebapp.service.FileService;
 
 /**
@@ -58,10 +59,11 @@ public class FileController {
 	public FileService fileService;
 	
 	//TODO: access static route name in jsp
+	//TODO: drap and drop on view side - do it with multiple file upload
 	@PreAuthorize("hasAuthority('PERM_UPLOAD_FILE')")
 	@RequestMapping(value = ROUTE_UPLOAD_FILE, method = RequestMethod.POST)
 	public ModelAndView uploadFile(Model model, 
-			@Valid @ModelAttribute("fileUploadForm") FileUploadForm fileUploadForm,
+			@Valid @ModelAttribute("filesUploadForm") FilesUploadForm filesUploadForm,
 			BindingResult result, 
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse) {
@@ -72,14 +74,19 @@ public class FileController {
 			
 			try {
 
-				MultipartFile file = fileUploadForm.getFile();
-				
-				if(!StringUtils.isEmpty(file.getOriginalFilename())){
-					fileService.saveOrUpdate(file.getBytes(), file.getOriginalFilename(),fileUploadForm.getDescription());				
-					model.addAttribute("msgFileController","Upload effectué: " + file.getOriginalFilename());
-				}else{
-					model.addAttribute("msgFileController","Please select a file!");
-				}				
+				//On boucle sur tous les fichiers uploadés
+				for(FileUpload fileUpload : filesUploadForm.getFilesUploaded())
+				{
+					MultipartFile file = fileUpload.getFile();
+					
+					if(!StringUtils.isEmpty(file.getOriginalFilename())){
+						fileService.saveOrUpdate(file.getBytes(), file.getOriginalFilename(),fileUpload.getDescription());				
+						model.addAttribute("msgFileController","Upload effectué: " + file.getOriginalFilename());
+					}
+//					else{
+//						model.addAttribute("msgFileController","Please select a file!");
+//					}	
+				}
 				
 			} catch (IOException e) {
 				logger.error("Exception raised:",e);
@@ -101,8 +108,8 @@ public class FileController {
 		modelAndView.addObject("listFiles", this.fileService.findAll());
 		
 		//On ajoute le formulaire d'envoi de fichiers si besoin
-		if (!model.containsAttribute("fileUploadForm"))
-			model.addAttribute("fileUploadForm", new FileUploadForm());
+		if (!model.containsAttribute("filesUploadForm"))
+			model.addAttribute("filesUploadForm", new FilesUploadForm());
 		
 		return modelAndView;	
 	}

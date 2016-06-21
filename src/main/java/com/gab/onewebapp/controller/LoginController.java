@@ -36,12 +36,14 @@ public class LoginController {
 
 		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
 
-		String msgLoginController = "Please entre your username and password:";
+		String msgLoginController = "";
+		boolean isErrorClassActive = false;
 		
 		if(action != null){
 			switch(action){
 			case "error":
 				msgLoginController = "Invalid username and password!";
+				isErrorClassActive = true;
 				break;
 			case "logout":
 				msgLoginController = "You've been logged out successfully!";
@@ -51,6 +53,7 @@ public class LoginController {
 		
 		  
 		model.addAttribute("msgLoginController", msgLoginController);
+		model.addAttribute("isErrorClassActive", isErrorClassActive);
 		ModelAndView modelAndView = new ModelAndView(VIEW_LOGIN, model.asMap());
 		
 		return modelAndView;

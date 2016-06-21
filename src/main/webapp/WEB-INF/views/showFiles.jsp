@@ -8,8 +8,9 @@
 <h1>Show Files</h1>
 
 <sec:authorize access="hasAuthority('PERM_UPLOAD_FILE')">
+
 	<span style="color: red;"> 
-		<spring:hasBindErrors name="fileUploadForm">
+		<spring:hasBindErrors name="filesUploadForm">
 			<c:forEach var="err" items="${errors.allErrors}">
 				<c:out value="${err.field}" /> :
 				<c:out value="${err.defaultMessage}" />
@@ -20,20 +21,21 @@
 	
 	<br />
 	<br />
-	<h3>Add a new file</h3>
+	<h3>Add a new file </h3>
 
-	<form:form method="POST" modelAttribute="fileUploadForm" action="uploadFile" id="idFileUploadForm" enctype="multipart/form-data">
-		<table>
+	<form:form method="POST" modelAttribute="filesUploadForm" action="uploadFile" id="idFilesUploadForm" enctype="multipart/form-data">
+		<table id="filesTable">
 			<tr>					
-				<td><form:label path="description">Description:</form:label></td>
+				<td><label for="filesUploaded[0].description">Description:</label></td>
 			</tr>
 			<tr>
-				<td><form:textarea path="description" rows="5" cols="30" /></td>	
+				<td><textarea name="filesUploaded[0].description" rows="5" cols="30"></textarea></td>	
 			</tr>
 			<tr>
-				<td><form:input type="file" path="file" /></td>
+				<td><input type="file" name="filesUploaded[0].file" /></td>
 			</tr>
 			<tr>
+				<button type="button" id="addFile">Add</button>
 				<td colspan="2"><input type="submit" value="Save File" /></td>
 			</tr>
 			<c:if test="${not empty msgFileController}">
@@ -45,33 +47,33 @@
 	</form:form>
 </sec:authorize>
 
-<table>
-	<tr>
-		<th>Description</th>
-		<th>Name</th>
-		<th>Version</th>
-		<th>Date Upload</th>
-		<th></th>
-		<th></th>
-	</tr>
-	<c:forEach var="file" items="${listFiles}">
+	<table>
 		<tr>
-			<td><c:out value="${file.description}" /></td>
-			<td><c:out value="${file.originalFilename}" /></td>
-			<td><c:out value="${file.version}" /></td>
-			<td>
-				<fmt:formatDate value="${file.dateUpload}" pattern="dd/MM/yyyy" />
-			</td>
-			<td>
-				<sec:authorize access="hasAuthority('PERM_DOWNLOAD_FILE')">
-					<a href="downloadFile?id=${file.id}">Download</a>
-				</sec:authorize>
-			</td>
-			<td>
-				<sec:authorize access="hasAuthority('PERM_DELETE_FILE')">
-					<a href="deleteFile?id=${file.id}">Delete</a>
-				</sec:authorize>
-			</td>
+			<th>Description</th>
+			<th>Name</th>
+			<th>Version</th>
+			<th>Date Upload</th>
+			<th></th>
+			<th></th>
 		</tr>
-	</c:forEach>
-</table>
+		<c:forEach var="file" items="${listFiles}">
+			<tr>
+				<td><c:out value="${file.description}" /></td>
+				<td><c:out value="${file.originalFilename}" /></td>
+				<td><c:out value="${file.version}" /></td>
+				<td>
+					<fmt:formatDate value="${file.dateUpload}" pattern="dd/MM/yyyy" />
+				</td>
+				<td>
+					<sec:authorize access="hasAuthority('PERM_DOWNLOAD_FILE')">
+						<a href="downloadFile?id=${file.id}">Download</a>
+					</sec:authorize>
+				</td>
+				<td>
+					<sec:authorize access="hasAuthority('PERM_DELETE_FILE')">
+						<a href="deleteFile?id=${file.id}">Delete</a>
+					</sec:authorize>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
