@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gab.onewebapp.beans.form.FileUpload;
 import com.gab.onewebapp.beans.form.FilesUploadForm;
+import com.gab.onewebapp.beans.validator.FilesUploadFormValidator;
 import com.gab.onewebapp.service.FileService;
 
 /**
@@ -58,6 +61,9 @@ public class FileController {
 	@Autowired
 	public FileService fileService;
 	
+	@Autowired
+	public FilesUploadFormValidator filesUploadFormValidator;
+	
 	//TODO: access static route name in jsp
 	//TODO: drap and drop on view side - do it with multiple file upload
 	@PreAuthorize("hasAuthority('PERM_UPLOAD_FILE')")
@@ -70,27 +76,34 @@ public class FileController {
 
 		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
 		
+		//La validation vérifie qu'il y a à minima un fichier à uploader parmi tous les input file
+		this.filesUploadFormValidator.validate(filesUploadForm, result);
+		
 		if(!result.hasErrors()){
 			
+			List<String> msgListFileController = new ArrayList<String>();
+			model.addAttribute("msgListFileController",msgListFileController);
+			
 			try {
-
+				
 				//On boucle sur tous les fichiers uploadés
 				for(FileUpload fileUpload : filesUploadForm.getFilesUploaded())
 				{
 					MultipartFile file = fileUpload.getFile();
 					
+					//On vérifie que l'input file ne soit pas vide
 					if(!StringUtils.isEmpty(file.getOriginalFilename())){
-						fileService.saveOrUpdate(file.getBytes(), file.getOriginalFilename(),fileUpload.getDescription());				
-						model.addAttribute("msgFileController","Upload effectué: " + file.getOriginalFilename());
+						fileService.saveOrUpdate(file.getBytes(), file.getOriginalFilename(),fileUpload.getDescription());
+						
+						msgListFileController = (ArrayList<String>)model.asMap().get("msgListFileController");
+						msgListFileController.add("Upload effectué: " + file.getOriginalFilename());
+						model.addAttribute("msgListFileController",msgListFileController);
 					}
-//					else{
-//						model.addAttribute("msgFileController","Please select a file!");
-//					}	
 				}
 				
 			} catch (IOException e) {
 				logger.error("Exception raised:",e);
-				result.rejectValue("exception", "ioexception.message", "Erreur lors de l'envoi du fichier.");
+				result.rejectValue("filesUploaded", "filesUploaded.ioexception.message", "Erreur lors de l'envoi du fichier.");
 			}
 			
 		}
@@ -114,6 +127,7 @@ public class FileController {
 		return modelAndView;	
 	}
 	
+	//TODO: mettre dans la vue le nom du fichier supprimé
 	@PreAuthorize("hasAuthority('PERM_DELETE_FILE')")
 	@RequestMapping(value = ROUTE_DELETE_FILE, method = RequestMethod.GET)
 	public ModelAndView deleteFile(Model model, @RequestParam("id")Long id, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
@@ -121,7 +135,9 @@ public class FileController {
 		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
 		
 		this.fileService.deleteFile(id);
-		model.addAttribute("msgFileController","Fichier supprimé avec succès");
+		List<String> msgListFileController = new ArrayList<String>();
+		msgListFileController.add("Fichier supprimé avec succès");
+		model.addAttribute("msgListFileController",msgListFileController);
 		
 		return this.showFiles(model, httpServletRequest, httpServletResponse);		
 	}

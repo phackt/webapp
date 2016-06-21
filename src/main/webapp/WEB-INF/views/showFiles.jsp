@@ -38,9 +38,13 @@
 				<button type="button" id="addFile">Add</button>
 				<td colspan="2"><input type="submit" value="Save File" /></td>
 			</tr>
-			<c:if test="${not empty msgFileController}">
+			<c:if test="${not empty msgListFileController}">
 				<tr>
-					<td>${msgFileController}</td>
+					<td>
+						<c:forEach var="msgFileController" items="${msgListFileController}">
+							<p>${msgFileController}</p>
+						</c:forEach>
+					</td>
 				</tr>	
 			</c:if>
 		</table>
