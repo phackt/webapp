@@ -9,11 +9,11 @@
 		<spring:message code="login.label.auth" />:
 	</h2>
 	
-	<label for="inputPassword" class="sr-only">Username</label>
-    <input type="text" id="inputPassword" name="username" class="form-control" placeholder="Username" required autofocus>
+	<label for="inputPassword" class="sr-only"><spring:message code="login.label.username" /></label>
+    <input type="text" id="inputPassword" name="username" class="form-control" placeholder="<spring:message code="login.label.username" />" required autofocus>
     
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+    <label for="inputPassword" class="sr-only"><spring:message code="login.label.password" /></label>
+    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="<spring:message code="login.label.password" />" required>
     
     <c:if test="${not empty msgLoginController}">
     
@@ -31,10 +31,10 @@
 	
     <div class="checkbox">
       <label>
-        <input type="checkbox" value="remember-me"> Remember me
+        <input type="checkbox" value="remember-me"> <spring:message code="login.label.remember_me" />
       </label>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="login.label.sign_in" /></button>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 

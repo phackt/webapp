@@ -1,12 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 	<%@ page contentType="text/html;charset=UTF-8"%>
 	
 <div class="container">
 	<!-- Features Row -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h2 class="page-header">Select your functionality:</h2>
+			<h2 class="page-header"><spring:message code="home.label.functionality" /></h2>
 		</div>
 		<div class="col-lg-4 col-sm-6 text-center">
 			<img usemap="#image-map" 
@@ -19,9 +20,10 @@
 			    <area shape="circle" coords="100,100,99" href="<c:url value='/showFiles' />">
 			</map>
 			<h3>
-				<a href="<c:url value='/showFiles' />">Upload files</a>
+				<a href="<c:url value='/showFiles' />"><spring:message code="home.link.upload_files" /></a>
+				<small><spring:message code="home.label.small_func_description" /></small>
 			</h3>
-			<p>Be totally hidden while updating your files</p>
+			<p><spring:message code="home.label.full_func_description" /></p>
 		</div>
 	</div>
 </div>	

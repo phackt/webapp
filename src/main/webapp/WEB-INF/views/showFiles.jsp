@@ -10,7 +10,7 @@
 	<!-- Features Row -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h2 class="page-header">Upload your files:</h2>
+			<h2 class="page-header"><spring:message code="showFiles.header.upload" />:</h2>
 		</div>
 		<div class="col-lg-12">
 			
@@ -19,8 +19,8 @@
 					<thead>
 						<tr>
 							<th colspan="2">
-								<input class="btn btn-default" type="button" value="Add File" id="addFile">
-								<button type="submit" class="btn btn-default">Save file(s)</button>
+								<input class="btn btn-default" type="button" value="<spring:message code="showFiles.button.add_file" />" id="addFile">
+								<button type="submit" class="btn btn-default"><spring:message code="showFiles.button.save_files" /></button>
 							</th>
 						</tr>
 						<spring:hasBindErrors name="filesUploadForm">
@@ -52,7 +52,7 @@
 						<tr>
 							<td>
 								<div class="form-group">
-									<textarea name="filesUploaded[0].description" class="form-control" rows="3" placeholder="Description..."></textarea>					 
+									<textarea name="filesUploaded[0].description" class="form-control" rows="3" placeholder="<spring:message code="showFiles.field.description.placeholder" />..."></textarea>					 
 								</div>
 							</td>
 							<td>
@@ -69,16 +69,16 @@
 </sec:authorize>
 	<div class="row">
 		<div class="col-lg-12">
-			<h2 class="page-header">Your uploaded files:</h2>
+			<h2 class="page-header"><spring:message code="showFiles.header.uploaded" />:</h2>
 		</div>
 		<div class="col-lg-12">
 			<table class="table table-hover" id="filesTable">
 				<thead>
 					<tr>
-						<th>Description</th>
-						<th>Name</th>
-						<th>Version</th>
-						<th>Date Upload</th>
+						<th><spring:message code="showFiles.table.th.description" /></th>
+						<th><spring:message code="showFiles.table.th.name" /></th>
+						<th><spring:message code="showFiles.table.th.version" /></th>
+						<th><spring:message code="showFiles.table.th.date_upload" /></th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -94,12 +94,12 @@
 							</td>
 							<td>
 								<sec:authorize access="hasAuthority('PERM_DOWNLOAD_FILE')">
-									<a href="downloadFile?id=${file.id}">Download</a>
+									<a href="downloadFile?id=${file.id}"><spring:message code="showFiles.link.download" /></a>
 								</sec:authorize>
 							</td>
 							<td>
 								<sec:authorize access="hasAuthority('PERM_DELETE_FILE')">
-									<a href="deleteFile?id=${file.id}">Delete</a>
+									<a href="deleteFile?id=${file.id}"><spring:message code="showFiles.link.delete" /></a>
 								</sec:authorize>
 							</td>
 						</tr>
