@@ -1,23 +1,32 @@
 var fileIndex = 1;
 
+//add more file components if Add is clicked
+$('#addFile')
+	.click(	
+		function() {										
+			$('#filesTable').append(
+					'<tr><td>' +
+					'	<div class="form-group">' +
+					'		<textarea name="filesUploaded[' + fileIndex + '].description" class="form-control" rows="3" placeholder="Description..."></textarea>' +
+					'	</div>' +
+					'</td>' +
+					'<td>' +
+					'	<div class="form-group">' +
+					'		<input type="file" name="filesUploaded[' + fileIndex + '].file" >' +
+					'		<br/>' +
+					'		<input class="btn btn-default removeFile" type="button" value="Remove file">' +
+					'	</div> ' +
+					'</td></tr>'
+				);	
+			
+			fileIndex++;
+		});		
+
+//Delegate events - elements not existing when js is loading
 $(document)
-	.ready(
-		function() {
-			//add more file components if Add is clicked
-			$('#addFile')
-				.click(	
-					function() {										
-						$('#filesTable').append('<tr><td>' +
-							'<label for="filesUploaded[' + fileIndex + '].description">Description:</label>' +
-							'</td></tr>' +
-							'<tr><td>' +
-							'<textarea name="filesUploaded[' + fileIndex + '].description" rows="5" cols="30"></textarea>' +
-							'</td></tr>' +
-							'<tr><td>' +
-							'<input type="file" name="filesUploaded[' + fileIndex + '].file" />' +
-							'</td></tr>'
-							);
-						
-							fileIndex++; 
-						});				
-					});
+	.on('click','.removeFile',function() {										
+			$(this).closest("tr").remove();
+			fileIndex--;
+		});				
+
+

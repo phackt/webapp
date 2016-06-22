@@ -65,7 +65,6 @@ public class FileController {
 	public FilesUploadFormValidator filesUploadFormValidator;
 	
 	//TODO: access static route name in jsp
-	//TODO: drap and drop on view side - do it with multiple file upload
 	@PreAuthorize("hasAuthority('PERM_UPLOAD_FILE')")
 	@RequestMapping(value = ROUTE_UPLOAD_FILE, method = RequestMethod.POST)
 	public ModelAndView uploadFile(Model model, 
@@ -127,16 +126,16 @@ public class FileController {
 		return modelAndView;	
 	}
 	
-	//TODO: mettre dans la vue le nom du fichier supprimé
 	@PreAuthorize("hasAuthority('PERM_DELETE_FILE')")
 	@RequestMapping(value = ROUTE_DELETE_FILE, method = RequestMethod.GET)
 	public ModelAndView deleteFile(Model model, @RequestParam("id")Long id, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
 		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
 		
+		String originalFilename = this.fileService.findById(id).getOriginalFilename();
 		this.fileService.deleteFile(id);
 		List<String> msgListFileController = new ArrayList<String>();
-		msgListFileController.add("Fichier supprimé avec succès");
+		msgListFileController.add("Fichier '" + originalFilename + "' supprimé avec succès");
 		model.addAttribute("msgListFileController",msgListFileController);
 		
 		return this.showFiles(model, httpServletRequest, httpServletResponse);		

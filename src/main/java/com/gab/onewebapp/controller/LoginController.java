@@ -28,6 +28,7 @@ public class LoginController {
 	@Autowired
 	private MessageSource messageSource;
 
+	//TODO: faire un interceptor pour récupérer les ips des requêtes et les logguer
 	@RequestMapping(value = ROUTE_LOGIN, method = RequestMethod.GET)
 	public ModelAndView showLogin(Model model, 
 			@RequestParam(value = "action", required = false) String action,

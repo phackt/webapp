@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<UserEntity id="0" username="user" password="user" enabled="true"  />
-	<UserProfileEntity id="0" userProfileType="USER"  />
-	<user_profile user_id="0" profile_id="0" />	
+	<TUSER id="0" username="user" password="$2a$10$A0Hakc4SohjPw0q.UTCdIeLiN6J4bO7fPMBvdmnpRmwyVnGQIcubG" enabled="true"  />
+	<TPROFILE id="0" user_profile_type="USER"  />
+	<TPERMISSION id="0" permission_type="PERM_DELETE_FILE"  />
+	<TPERMISSION id="1" permission_type="PERM_UPLOAD_FILE"  />
+	<TPERMISSION id="2" permission_type="PERM_DOWNLOAD_FILE"  />
+	<TUSER_PROFILE user_id="0" profile_id="0" />	
+	<TPROFILE_PERMISSION profile_id="0" permission_id="0" />
+	<TPROFILE_PERMISSION profile_id="0" permission_id="1" />
+	<TPROFILE_PERMISSION profile_id="0" permission_id="2" />
 </dataset>
