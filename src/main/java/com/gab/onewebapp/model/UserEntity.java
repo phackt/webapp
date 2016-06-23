@@ -1,6 +1,9 @@
 package com.gab.onewebapp.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +19,9 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author gabriel
@@ -23,7 +29,7 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
  */
 @Entity
 @Table(name = "TUSER")
-public class UserEntity {
+public class UserEntity implements UserDetails{
 
 	@Id
 	@GeneratedValue
@@ -37,6 +43,16 @@ public class UserEntity {
 	
 	@Column(name="enabled", nullable = false)
 	private boolean enabled = true;
+	
+	@Column(name="locked", nullable = false)
+	private boolean locked = false;
+	
+	@Column(name="expired", nullable = false)
+	private boolean expired = false;
+	
+	@Column(name="credentials_expired", nullable = false)
+	private boolean credentialsExpired = false;
+	
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "TUSER_PROFILE", joinColumns = { 
@@ -72,14 +88,6 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
 	public Set<UserProfileEntity> getUserProfiles() {
 		return userProfiles;
 	}
@@ -88,6 +96,59 @@ public class UserEntity {
 		this.userProfiles = userProfiles;
 	}
 
+	@Override
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	@Override
+	public boolean isAccountNonLocked() {
+		return !this.locked;
+	}
+
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return !this.expired;
+	}
+	
+	public void setExpired(boolean expired) {
+		this.expired = expired;
+	}
+	
+	public void setCredentialsExpired(boolean credentialsExpired) {
+		this.credentialsExpired = credentialsExpired;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return !this.credentialsExpired;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        
+        //Add Roles
+        for(UserProfileEntity userProfile : this.getUserProfiles()){
+            authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getUserProfileType()));
+            
+            //Add Permission as Roles - for a best granularity check Spring sample project Contacts with ACL on each object
+            for(PermissionEntity permissionEntity : userProfile.getPermissions()){
+            	authorities.add(new SimpleGrantedAuthority(permissionEntity.getPermissionType().toString()));
+            }
+        }     
+        
+        return authorities;
+	}
+	
 	@Override
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this);	
