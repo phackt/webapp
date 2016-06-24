@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<FileEntity id="0" original_filename="fichier.txt" stored_filename="fichier.txt" description="fichier de test" version="1" date_upload="2016-01-01" />
+	<TUSER id="0" username="user1" password="$2a$10$A0Hakc4SohjPw0q.UTCdIeLiN6J4bO7fPMBvdmnpRmwyVnGQIcubG" enabled="true"  />
+	<TUSER id="1" username="user2" password="$2a$10$A0Hakc4SohjPw0q.UTCdIeLiN6J4bO7fPMBvdmnpRmwyVnGQIcubG" enabled="true"  />
+	<TFILE id="0" original_filename="fichier1.txt" stored_filename="fichier1.txt" description="fichier de test 1" version="1" date_upload="2016-01-01" user_id="0"/>
+	<TFILE id="1" original_filename="fichier2.txt" stored_filename="fichier2.txt" description="fichier de test 2" version="1" date_upload="2016-01-01" user_id="1"/>
+	
+	<!-- obligatorie pour respecter les contraintes sur les users -->
+	<TPROFILE id="0" user_profile_type="USER"  />
+	<TPERMISSION id="0" permission_type="PERM_DELETE_FILE"  />
+	<TPERMISSION id="1" permission_type="PERM_UPLOAD_FILE"  />
+	<TPERMISSION id="2" permission_type="PERM_DOWNLOAD_FILE"  />
+	<TPROFILE_PERMISSION profile_id="0" permission_id="0" />
+	<TPROFILE_PERMISSION profile_id="0" permission_id="1" />
+	<TPROFILE_PERMISSION profile_id="0" permission_id="2" />	
+	<TUSER_PROFILE user_id="0" profile_id="0" />	
+	<TUSER_PROFILE user_id="1" profile_id="0" />
 </dataset>

@@ -22,6 +22,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,6 +66,9 @@ public class FileController {
 	@Autowired
 	public FilesUploadFormValidator filesUploadFormValidator;
 	
+	@Autowired
+	private MessageSource messageSource;
+	
 	//TODO: access static route name in jsp
 	@PreAuthorize("hasAuthority('PERM_UPLOAD_FILE')")
 	@RequestMapping(value = ROUTE_UPLOAD_FILE, method = RequestMethod.POST)
@@ -95,14 +100,14 @@ public class FileController {
 						fileService.saveOrUpdate(file.getBytes(), file.getOriginalFilename(),fileUpload.getDescription());
 						
 						msgListFileController = (ArrayList<String>)model.asMap().get("msgListFileController");
-						msgListFileController.add("Upload effectué: " + file.getOriginalFilename());
+						msgListFileController.add(this.messageSource.getMessage("fileController.label.upload_success", new Object[] {file.getOriginalFilename()},LocaleContextHolder.getLocale()));
 						model.addAttribute("msgListFileController",msgListFileController);
 					}
 				}
 				
 			} catch (IOException e) {
 				logger.error("Exception raised:",e);
-				result.rejectValue("filesUploaded", "filesUploaded.ioexception.message", "Erreur lors de l'envoi du fichier.");
+				result.rejectValue("filesUploaded", "fileController.exception.upload_file");
 			}
 			
 		}
@@ -117,7 +122,7 @@ public class FileController {
 		
 		ModelAndView modelAndView = new ModelAndView(VIEW_SHOW_FILES);
 
-		modelAndView.addObject("listFiles", this.fileService.findAll());
+		modelAndView.addObject("listFiles", this.fileService.findAllFromCurrentUser());
 		
 		//On ajoute le formulaire d'envoi de fichiers si besoin
 		if (!model.containsAttribute("filesUploadForm"))
@@ -135,7 +140,8 @@ public class FileController {
 		String originalFilename = this.fileService.findById(id).getOriginalFilename();
 		this.fileService.deleteFile(id);
 		List<String> msgListFileController = new ArrayList<String>();
-		msgListFileController.add("Fichier '" + originalFilename + "' supprimé avec succès");
+		
+		msgListFileController.add(this.messageSource.getMessage("fileController.label.delete_success", new Object[] {originalFilename},LocaleContextHolder.getLocale()));
 		model.addAttribute("msgListFileController",msgListFileController);
 		
 		return this.showFiles(model, httpServletRequest, httpServletResponse);		
@@ -151,7 +157,8 @@ public class FileController {
 		
 		if(!fileDownload.exists()){
 			
-			String errorMessage = "Sorry. The file you are looking for does not exist";
+			
+			String errorMessage = this.messageSource.getMessage("fileController.label.download_error", null, LocaleContextHolder.getLocale());
 			logger.error("File with id " + id + " does not exist");
 			OutputStream outputStream; 
 			

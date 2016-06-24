@@ -19,6 +19,7 @@
 			username-parameter="username"
 			password-parameter="password" />
 		<security:logout logout-url="/logout" logout-success-url="/login?action=logout"/>
+		<security:remember-me key="uniqueAndSecret" token-validity-seconds="86400"/>
 	</security:http>
 	
 	<security:authentication-manager>

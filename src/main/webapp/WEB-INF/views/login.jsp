@@ -30,9 +30,9 @@
 	</c:if>
 	
     <div class="checkbox">
-      <label>
-        <input type="checkbox" value="remember-me"> <spring:message code="login.label.remember_me" />
-      </label>
+		<label>
+			<input type="checkbox" name="remember-me" value="remember-me"><spring:message code="login.label.remember_me" />
+		</label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="login.label.sign_in" /></button>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

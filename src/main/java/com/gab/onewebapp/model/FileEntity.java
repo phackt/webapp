@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,6 +20,7 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
  * 
  */
 @Entity
+@Table(name = "TFILE")
 public class FileEntity {
 
 	@Id
@@ -38,6 +42,10 @@ public class FileEntity {
 
 	@Column(nullable = false)
 	private long version = 1;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private UserEntity user;
 	
 	public FileEntity() {
 	}

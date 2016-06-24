@@ -26,7 +26,7 @@ public class UserDao {
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
 	public List<UserEntity> findAll(){
-		return (List<UserEntity>)this.sessionFactory.getCurrentSession().createQuery("From UserEntity").list();
+		return (List<UserEntity>)this.sessionFactory.getCurrentSession().createQuery("FROM UserEntity").list();
 	}
 	
 	@Transactional

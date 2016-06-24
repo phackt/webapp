@@ -7,8 +7,9 @@
 	<!-- Features Row -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h2 class="page-header"><spring:message code="home.label.functionality" /></h2>
+			<h2 class="page-header"><spring:message code="home.label.functionality" />:</h2>
 		</div>
+		<!-- Spring Form + Servlet -->
 		<div class="col-lg-4 col-sm-6 text-center">
 			<img usemap="#image-map" 
 				class="img-circle img-responsive img-center" 
@@ -21,9 +22,27 @@
 			</map>
 			<h3>
 				<a href="<c:url value='/showFiles' />"><spring:message code="home.link.upload_files" /></a>
-				<small><spring:message code="home.label.small_func_description" /></small>
+				<small><spring:message code="home.label.uploadFiles.springForm.small_func_description" /></small>
 			</h3>
-			<p><spring:message code="home.label.full_func_description" /></p>
+			<p><spring:message code="home.label.uploadFiles.full_func_description" /></p>
+		</div>
+		
+		<!-- Angular + Rest controller -->
+		<div class="col-lg-4 col-sm-6 text-center">
+			<img usemap="#image-map" 
+				class="img-circle img-responsive img-center" 
+				src="<c:url value='/resources' />/images/upload_files_200x200.png" 
+				alt="Upload files">
+			
+	<!-- 				https://www.image-map.net/	 -->
+			<map name="image-map">
+			    <area shape="circle" coords="100,100,99" href="<c:url value='/showFiles' />">
+			</map>
+			<h3>
+				<a href="<c:url value='/showFiles' />"><spring:message code="home.link.upload_files" /></a>
+				<small><spring:message code="home.label.uploadFiles.angularRest.small_func_description" /></small>
+			</h3>
+			<p><spring:message code="home.label.uploadFiles.full_func_description" /></p>
 		</div>
 	</div>
 </div>	

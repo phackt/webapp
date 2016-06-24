@@ -1,6 +1,7 @@
 package com.gab.onewebapp.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -44,6 +46,9 @@ public class UserEntity {
 			inverseJoinColumns = { 
 			@JoinColumn(name = "profile_id", nullable = false, updatable = false) })
 	private Set<UserProfileEntity> userProfiles = new HashSet<UserProfileEntity>();
+	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	private List<FileEntity> files;
 	
 	public UserEntity() {
 	}
@@ -86,6 +91,14 @@ public class UserEntity {
 
 	public void setUserProfiles(Set<UserProfileEntity> userProfiles) {
 		this.userProfiles = userProfiles;
+	}
+
+	public List<FileEntity> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<FileEntity> files) {
+		this.files = files;
 	}
 
 	@Override

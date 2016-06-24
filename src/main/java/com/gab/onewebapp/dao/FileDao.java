@@ -2,6 +2,7 @@ package com.gab.onewebapp.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gab.onewebapp.model.FileEntity;
+import com.gab.onewebapp.model.UserEntity;
 
 /**
  * @author gabriel
@@ -24,21 +26,32 @@ public class FileDao {
 	
 	public void FileEntity(){	
 	}
+	
+	private Criteria createFindAllByUserCriteria(UserEntity user){
 		
+		Criteria allFilesCriteria = this.sessionFactory.getCurrentSession().createCriteria(FileEntity.class);
+		
+		if(user != null){
+			allFilesCriteria.add(Restrictions.eq("user",user));
+		}
+		
+		return allFilesCriteria;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> findAll(){
-		return (List<FileEntity>)this.sessionFactory.getCurrentSession().createQuery("From FileEntity").list();
+	public List<FileEntity> findAll(UserEntity user){
+		return this.createFindAllByUserCriteria(user).list();
 	}
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> findAll(int start, int maxElts){
-		Query q = this.sessionFactory
-				.getCurrentSession().createQuery("FROM FileEntity")
+	public List<FileEntity> findAll(UserEntity user, int start, int maxElts){
+		return this.createFindAllByUserCriteria(user)
 				.setFirstResult(start)
-				.setMaxResults(maxElts);
-		return q.list();
+				.setMaxResults(maxElts).list();
 	}
 	
 	@Transactional
@@ -58,17 +71,17 @@ public class FileDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> findLike(String originalFilename){
-		return (List<FileEntity>)this.sessionFactory.getCurrentSession().createQuery("FROM FileEntity WHERE originalFilename LIKE :originalFilename")
-				.setParameter("originalFilename", "%" + originalFilename + "%")
+	public List<FileEntity> findLike(UserEntity user, String originalFilename){
+		return this.createFindAllByUserCriteria(user)
+				.add(Restrictions.like("originalFilename","%" + originalFilename + "%"))
 				.list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> findByOriginalFilename(String originalFilename){
-		return (List<FileEntity>)this.sessionFactory.getCurrentSession().createQuery("FROM FileEntity WHERE originalFilename=:originalFilename")
-				.setParameter("originalFilename", originalFilename)
+	public List<FileEntity> findByOriginalFilename(UserEntity user, String originalFilename){
+		return this.createFindAllByUserCriteria(user)
+				.add(Restrictions.eq("originalFilename",originalFilename))
 				.list();
 	}	
 	
@@ -79,9 +92,10 @@ public class FileDao {
 	}
 
 	@Transactional(readOnly=true)
-	public Long getLastVersion(String originalFilename) {
-		return (Long)this.sessionFactory.getCurrentSession().createCriteria(FileEntity.class).add(Restrictions.eq("originalFilename",originalFilename)).setProjection(Projections.max("version")).uniqueResult();
-
+	public Long getLastVersion(UserEntity user, String originalFilename) {
+		return (Long)this.createFindAllByUserCriteria(user)
+				.add(Restrictions.eq("originalFilename",originalFilename))
+				.setProjection(Projections.max("version")).uniqueResult();
 	}
 	
 }

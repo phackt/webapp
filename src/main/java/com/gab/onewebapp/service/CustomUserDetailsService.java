@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -26,6 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
     private UserService userService;
+	
+	@Autowired
+	private MessageSource messageSource;
      
     @Transactional(readOnly=true)
 	@Override
@@ -35,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         UserEntity user = userService.findByUsername(username);
         
         if(user==null){
-            throw new UsernameNotFoundException("Username not found");
+            throw new UsernameNotFoundException(this.messageSource.getMessage("customUserDetailsService.error.user_not_found", null, LocaleContextHolder.getLocale()));
         }
         return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, getGrantedAuthorities(user));
     }

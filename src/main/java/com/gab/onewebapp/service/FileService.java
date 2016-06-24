@@ -1,10 +1,12 @@
 package com.gab.onewebapp.service;
 
 import java.io.BufferedOutputStream;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
@@ -12,12 +14,15 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gab.onewebapp.config.ApplicationDevConfig;
 import com.gab.onewebapp.dao.FileDao;
+import com.gab.onewebapp.dao.UserDao;
 import com.gab.onewebapp.model.FileEntity;
+import com.gab.onewebapp.model.UserEntity;
 
 @Service
 public class FileService {
@@ -28,6 +33,9 @@ public class FileService {
 	private FileDao fileDao;
 	
 	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
 	private ApplicationDevConfig appConfig;
 	
 	public FileService(){
@@ -36,12 +44,15 @@ public class FileService {
 	@Transactional
 	public void saveOrUpdate(byte[] bytesFilename, String originalFilename, String description) throws IOException{
 		
+		//Get current user entity mapped from principal
+		UserEntity currentUser = this.userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+								
 		String storedFilename = originalFilename;
 		FileEntity newFileEntity = new FileEntity(originalFilename, storedFilename, description);
 		
 		//On regarde si un fichier du même nom existe => versionning
-		if(!(fileDao.findByOriginalFilename(originalFilename)).isEmpty()){
-			Long version = fileDao.getLastVersion(originalFilename) + 1;
+		if(!(fileDao.findByOriginalFilename(currentUser,originalFilename)).isEmpty()){
+			Long version = fileDao.getLastVersion(currentUser,originalFilename) + 1;
 			
 			String addVersioningString = "_v" 
 					+ version
@@ -59,8 +70,17 @@ public class FileService {
 			logger.info("file " + originalFilename + " already exists, new version is " + version);
 		}
 		
+		
+		//Vérification que le répertoire exists
+		String strUserUploadDir = this.appConfig.getUploadDirPath() + File.separator + currentUser.getId();
+		Path pathUserUploadDir = Paths.get(strUserUploadDir);
+		
+		if(!Files.exists(pathUserUploadDir)){
+			Files.createDirectory(pathUserUploadDir);
+		}
+		
 		//Nom du fichier à sauvegarder
-		String storedFileFullPath = this.appConfig.getUploadDirPath() + File.separator + storedFilename;
+		String storedFileFullPath = strUserUploadDir + File.separator + storedFilename;
 		
 		//Creation du fichier sur le serveur
 		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(storedFileFullPath)));
@@ -72,10 +92,16 @@ public class FileService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<FileEntity> findAll() {
-		return this.fileDao.findAll();
+	public List<FileEntity> findAllFromCurrentUser() {
+		return this.fileDao.findAll(this.userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 	}
 
+	@Transactional(readOnly = true)
+	public List<FileEntity> findAll() {
+		return this.fileDao.findAll(null);
+	}
+
+	
 	@Transactional
 	public void deleteFile(Long id) {
 		FileEntity fileToDelete = this.fileDao.findById(id);
@@ -83,8 +109,8 @@ public class FileService {
 	}
 	
 	@Transactional(readOnly=true)
-	public Long getLastVersion(String originalFilename) {
-		return this.fileDao.getLastVersion(originalFilename);
+	public Long getLastVersionFromCurrentUser(String originalFilename) {
+		return this.fileDao.getLastVersion(this.userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),originalFilename);
 	}
 	
 	@Transactional(readOnly=true)
@@ -94,9 +120,11 @@ public class FileService {
 	
 	@Transactional(readOnly=true)
 	public File findStoredOnServerById(long id) {
+		UserEntity currentUser = this.userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		
 		FileEntity fileEntity = this.fileDao.findById(id); 
 		if(fileEntity != null && !StringUtils.isEmpty(fileEntity.getStoredFilename())){
-			return new File(this.appConfig.getUploadDirPath() + File.separator + fileEntity.getStoredFilename());
+			return new File(this.appConfig.getUploadDirPath() + File.separator + currentUser.getId() + File.separator + fileEntity.getStoredFilename());
 		}
 
 		return null;
