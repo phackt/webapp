@@ -1,7 +1,6 @@
 package com.gab.onewebapp.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -58,7 +57,7 @@ public class UserEntity {
 	private Set<UserProfileEntity> userProfiles = new HashSet<UserProfileEntity>();
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	private List<FileEntity> files;
+	private Set<FileEntity> files;
 	
 	public UserEntity() {
 	}
@@ -127,11 +126,11 @@ public class UserEntity {
 		return !this.credentialsExpired;
 	}
 
-	public List<FileEntity> getFiles() {
+	public Set<FileEntity> getFiles() {
 		return files;
 	}
 
-	public void setFiles(List<FileEntity> files) {
+	public void setFiles(Set<FileEntity> files) {
 		this.files = files;
 	}
 
