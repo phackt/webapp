@@ -44,15 +44,16 @@ public class FileService {
 	@Transactional
 	public void saveOrUpdate(byte[] bytesFilename, String originalFilename, String description) throws IOException{
 		
-		//Get current user entity mapped from principal
-		UserEntity currentUser = this.userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-								
+		//On récupère l'entité du principal (non stockée comme entité) dans le security context
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		UserEntity currentUser = this.userDao.findByUsername(username);
+		
 		String storedFilename = originalFilename;
-		FileEntity newFileEntity = new FileEntity(originalFilename, storedFilename, description);
+		FileEntity newFileEntity = new FileEntity(currentUser, originalFilename, storedFilename, description);
 		
 		//On regarde si un fichier du même nom existe => versionning
-		if(!(fileDao.findByOriginalFilename(currentUser,originalFilename)).isEmpty()){
-			Long version = fileDao.getLastVersion(currentUser,originalFilename) + 1;
+		if(!(fileDao.findByOriginalFilename(username,originalFilename)).isEmpty()){
+			Long version = fileDao.getLastVersion(username,originalFilename) + 1;
 			
 			String addVersioningString = "_v" 
 					+ version
@@ -91,9 +92,14 @@ public class FileService {
 		
 	}
 
+	/**
+	 * Choice has been done not to make UserEntity implementing UserDetails
+	 * Even if OneToMany is LAZY, later a UserEntity can be the owner of other heavy relation.
+	 * So every data will stay in memory. Distinction is also made between security user and entity.
+	 */
 	@Transactional(readOnly = true)
 	public List<FileEntity> findAllFromCurrentUser() {
-		return this.fileDao.findAll(this.userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+		return this.fileDao.findAll(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
 
 	@Transactional(readOnly = true)
@@ -110,7 +116,7 @@ public class FileService {
 	
 	@Transactional(readOnly=true)
 	public Long getLastVersionFromCurrentUser(String originalFilename) {
-		return this.fileDao.getLastVersion(this.userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),originalFilename);
+		return this.fileDao.getLastVersion(SecurityContextHolder.getContext().getAuthentication().getName(),originalFilename);
 	}
 	
 	@Transactional(readOnly=true)

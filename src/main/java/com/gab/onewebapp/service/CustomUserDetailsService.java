@@ -1,6 +1,7 @@
 package com.gab.onewebapp.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -42,13 +43,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException(this.messageSource.getMessage("customUserDetailsService.error.user_not_found", null, LocaleContextHolder.getLocale()));
         }
-        return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, getGrantedAuthorities(user));
+        return new User(user.getUsername(),user.getPassword(), user.isEnabled(), user.isAccountNonExpired(), user.isCredentialsNonExpired(), user.isAccountNonLocked(), this.getAuthorities(user));
     }
- 
-     
-    private List<GrantedAuthority> getGrantedAuthorities(UserEntity user){
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-         
+    
+	private Collection<? extends GrantedAuthority> getAuthorities(UserEntity user) {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        
         //Add Roles
         for(UserProfileEntity userProfile : user.getUserProfiles()){
             authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getUserProfileType()));
@@ -57,9 +57,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             for(PermissionEntity permissionEntity : userProfile.getPermissions()){
             	authorities.add(new SimpleGrantedAuthority(permissionEntity.getPermissionType().toString()));
             }
-        }
-        
+        }     
         
         return authorities;
-    }
+	}
 }

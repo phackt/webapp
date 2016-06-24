@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<TUSER id="0" username="user" password="$2a$10$A0Hakc4SohjPw0q.UTCdIeLiN6J4bO7fPMBvdmnpRmwyVnGQIcubG" enabled="true"  />
+	<TUSER id="0" username="user" password="$2a$10$A0Hakc4SohjPw0q.UTCdIeLiN6J4bO7fPMBvdmnpRmwyVnGQIcubG" enabled="true" locked="false" expired="false" credentials_expired="false" />
 	<TPROFILE id="0" user_profile_type="USER"  />
 	<TPERMISSION id="0" permission_type="PERM_DELETE_FILE"  />
 	<TPERMISSION id="1" permission_type="PERM_UPLOAD_FILE"  />

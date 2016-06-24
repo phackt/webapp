@@ -3,16 +3,15 @@ package com.gab.onewebapp.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.gab.onewebapp.model.FileEntity;
-import com.gab.onewebapp.model.UserEntity;
 
 /**
  * @author gabriel
@@ -27,29 +26,31 @@ public class FileDao {
 	public void FileEntity(){	
 	}
 	
-	private Criteria createFindAllByUserCriteria(UserEntity user){
+	private Criteria createFindAllByUserCriteria(String username){
 		
 		Criteria allFilesCriteria = this.sessionFactory.getCurrentSession().createCriteria(FileEntity.class);
 		
-		if(user != null){
-			allFilesCriteria.add(Restrictions.eq("user",user));
+		if(!StringUtils.isEmpty(username)){
+			allFilesCriteria.createAlias("user","u");
+			allFilesCriteria.add(Restrictions.eq("u.username",username));
 		}
 		
+		allFilesCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return allFilesCriteria;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> findAll(UserEntity user){
-		return this.createFindAllByUserCriteria(user).list();
+	public List<FileEntity> findAll(String username){
+		return this.createFindAllByUserCriteria(username).list();
 	}
 	
 	
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> findAll(UserEntity user, int start, int maxElts){
-		return this.createFindAllByUserCriteria(user)
+	public List<FileEntity> findAll(String username, int start, int maxElts){
+		return this.createFindAllByUserCriteria(username)
 				.setFirstResult(start)
 				.setMaxResults(maxElts).list();
 	}
@@ -71,16 +72,16 @@ public class FileDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> findLike(UserEntity user, String originalFilename){
-		return this.createFindAllByUserCriteria(user)
+	public List<FileEntity> findLike(String username, String originalFilename){
+		return this.createFindAllByUserCriteria(username)
 				.add(Restrictions.like("originalFilename","%" + originalFilename + "%"))
 				.list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<FileEntity> findByOriginalFilename(UserEntity user, String originalFilename){
-		return this.createFindAllByUserCriteria(user)
+	public List<FileEntity> findByOriginalFilename(String username, String originalFilename){
+		return this.createFindAllByUserCriteria(username)
 				.add(Restrictions.eq("originalFilename",originalFilename))
 				.list();
 	}	
@@ -92,8 +93,8 @@ public class FileDao {
 	}
 
 	@Transactional(readOnly=true)
-	public Long getLastVersion(UserEntity user, String originalFilename) {
-		return (Long)this.createFindAllByUserCriteria(user)
+	public Long getLastVersion(String username, String originalFilename) {
+		return (Long)this.createFindAllByUserCriteria(username)
 				.add(Restrictions.eq("originalFilename",originalFilename))
 				.setProjection(Projections.max("version")).uniqueResult();
 	}

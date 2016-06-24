@@ -40,6 +40,16 @@ public class UserEntity {
 	@Column(name="enabled", nullable = false)
 	private boolean enabled = true;
 	
+	@Column(name="locked", nullable = false)
+	private boolean locked = false;
+	
+	@Column(name="expired", nullable = false)
+	private boolean expired = false;
+	
+	@Column(name="credentials_expired", nullable = false)
+	private boolean credentialsExpired = false;
+	
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "TUSER_PROFILE", joinColumns = { 
 			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, 
@@ -77,20 +87,44 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
 	public Set<UserProfileEntity> getUserProfiles() {
 		return userProfiles;
 	}
 
 	public void setUserProfiles(Set<UserProfileEntity> userProfiles) {
 		this.userProfiles = userProfiles;
+	}
+
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	public boolean isAccountNonLocked() {
+		return !this.locked;
+	}
+
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
+	public boolean isAccountNonExpired() {
+		return !this.expired;
+	}
+	
+	public void setExpired(boolean expired) {
+		this.expired = expired;
+	}
+	
+	public void setCredentialsExpired(boolean credentialsExpired) {
+		this.credentialsExpired = credentialsExpired;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		return !this.credentialsExpired;
 	}
 
 	public List<FileEntity> getFiles() {

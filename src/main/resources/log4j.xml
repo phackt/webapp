@@ -65,6 +65,10 @@
 	<logger name="org.hibernate.tool.hbm2ddl.SchemaExport">
 		<level value="debug" />
 	</logger>
+	
+	<logger name="org.hibernate">
+		<level value="debug" />
+	</logger>
 
 	<!-- Root Logger -->
 	<root>

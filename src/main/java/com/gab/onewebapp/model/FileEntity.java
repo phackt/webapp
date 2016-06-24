@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -43,21 +44,22 @@ public class FileEntity {
 	@Column(nullable = false)
 	private long version = 1;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id", nullable = false)
 	private UserEntity user;
 	
 	public FileEntity() {
 	}
 
-	public FileEntity(String originalFilename, String storedFilename, String description){
+	public FileEntity(UserEntity user, String originalFilename, String storedFilename, String description){
+		this.user = user;
 		this.originalFilename = originalFilename;
 		this.storedFilename = storedFilename;
 		this.description = description;
 	}
 	
-	public FileEntity(String originalFilename, String storedFilename, String description, Date dateUpload){
-		this(originalFilename, storedFilename, description);
+	public FileEntity(UserEntity user, String originalFilename, String storedFilename, String description, Date dateUpload){
+		this(user, originalFilename, storedFilename, description);
 		this.dateUpload = dateUpload;
 	}
 	
@@ -107,6 +109,14 @@ public class FileEntity {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 	@Override

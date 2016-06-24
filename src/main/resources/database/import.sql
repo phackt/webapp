@@ -1,4 +1,4 @@
-INSERT INTO TUSER(id,username,password,enabled) VALUES(0,'user','$2a$10$A0Hakc4SohjPw0q.UTCdIeLiN6J4bO7fPMBvdmnpRmwyVnGQIcubG',true);
+INSERT INTO TUSER(id,username,password,enabled,locked,expired,credentials_expired) VALUES(0,'user','$2a$10$A0Hakc4SohjPw0q.UTCdIeLiN6J4bO7fPMBvdmnpRmwyVnGQIcubG',true,false,false,false);
 INSERT INTO TPROFILE(id,user_profile_type) VALUES(0,'USER');
 INSERT INTO TPERMISSION(id,permission_type) VALUES(0,'PERM_DELETE_FILE');
 INSERT INTO TPERMISSION(id,permission_type) VALUES(1,'PERM_UPLOAD_FILE');
