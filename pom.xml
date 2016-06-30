@@ -63,6 +63,52 @@
 		    </exclusions>
 		</dependency>
 
+		<!-- For CorsFilter and other apache conf -->
+		<dependency>
+		    <groupId>org.apache.tomcat</groupId>
+		    <artifactId>tomcat-catalina</artifactId>
+		    <version>8.0.35</version>
+		    <scope>provided</scope>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>tomcat-jsp-api</artifactId>
+		    		<groupId>org.apache.tomcat</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>tomcat-api</artifactId>
+		    		<groupId>org.apache.tomcat</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>tomcat-coyote</artifactId>
+		    		<groupId>org.apache.tomcat</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>tomcat-annotations-api</artifactId>
+		    		<groupId>org.apache.tomcat</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>tomcat-juli</artifactId>
+		    		<groupId>org.apache.tomcat</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>tomcat-jni</artifactId>
+		    		<groupId>org.apache.tomcat</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>tomcat-util-scan</artifactId>
+		    		<groupId>org.apache.tomcat</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>tomcat-util</artifactId>
+		    		<groupId>org.apache.tomcat</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>tomcat-servlet-api</artifactId>
+		    		<groupId>org.apache.tomcat</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

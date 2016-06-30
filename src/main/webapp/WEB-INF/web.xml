@@ -57,6 +57,22 @@
 		<filter-name>MultipartFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<!-- For improving security, cors should only be allowed to the same origin -->
+	<!-- Par défaut les requêtes simples (même withCredentials) sont acceptées par les serveurs sans filtre spécifique -->
+	<filter>
+		<filter-name>CorsFilter</filter-name>
+		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowed.origins</param-name>
+			<param-value>http://localhost</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!-- intercepting requests for spring security -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
