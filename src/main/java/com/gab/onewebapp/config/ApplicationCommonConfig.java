@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 
-
+//TODO: variabiliser les fichiers log4j en fonction de l'environnement
+//ne pas mettre les variables log4j dans ApplicationCommonConfig
 public abstract class ApplicationCommonConfig {
 
 	public static final Integer MAX_FILENAME_LENGTH = 255;
@@ -15,25 +16,17 @@ public abstract class ApplicationCommonConfig {
 	@NotNull
 	@Value("${file.uploadDirPath}")
 	private String uploadDirPath;
-
+	
 	@NotNull
-	@Value("${application.logPath}")
-	private String appLogPath;
+	@Value("${application.currentAuthUserLogged}")
+	private String currentAuthUserLogged;
 	
 	public String getUploadDirPath() {
 		return uploadDirPath;
 	}
 
-	public void setUploadDirPath(String uploadDirPath) {
-		this.uploadDirPath = uploadDirPath;
-	}
-	
-	public String getAppLogPath() {
-		return appLogPath;
-	}
-
-	public void setAppLogPath(String appLogPath) {
-		this.appLogPath = appLogPath;
+	public Boolean isCurrentAuthUserLogged() {
+		return Boolean.parseBoolean(this.currentAuthUserLogged);
 	}
 
 	@Bean

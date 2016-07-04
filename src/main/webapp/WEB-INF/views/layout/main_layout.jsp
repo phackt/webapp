@@ -5,8 +5,9 @@
 <!-- http://frameworkonly.com/spring-mvc-4-tiles-3-integration/ -->
 <html>
 <head>
-	<title><tiles:insertAttribute name="title" ignore="true" /></title>
+	<meta name="referrer" content="<tiles:insertAttribute name="referer" ignore="true" />">
 	
+	<title><tiles:insertAttribute name="title" ignore="true" /></title>	
 	<tiles:importAttribute name="stylesheets"/>
 	<c:forEach var="css" items="${stylesheets}">
 		<link rel="stylesheet" type="text/css" href="<c:url value="${css}"/>">

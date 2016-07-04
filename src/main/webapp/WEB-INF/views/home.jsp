@@ -13,7 +13,7 @@
 		<div class="col-lg-4 col-sm-6 text-center">
 			<img usemap="#image-map" 
 				class="img-circle img-responsive img-center" 
-				src="<c:url value='/resources' />/images/upload_files_200x200.png" 
+				src="<c:url value='/resources' />/images/spring_logo_200x200.png" 
 				alt="Upload files">
 			
 	<!-- 				https://www.image-map.net/	 -->
@@ -31,7 +31,7 @@
 		<div class="col-lg-4 col-sm-6 text-center">
 			<img usemap="#image-map" 
 				class="img-circle img-responsive img-center" 
-				src="<c:url value='/resources' />/images/upload_files_200x200.png" 
+				src="<c:url value='/resources' />/images/angularjs_logo_200x200.png" 
 				alt="Upload files">
 			
 	<!-- 				https://www.image-map.net/	 -->

@@ -11,14 +11,22 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml,/WEB-INF/spring/security-context.xml</param-value>
 	</context-param>
-	<!--  -->
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+	<!-- Usefull to inject (even in a singleton scoped bean), the HttpServletRequest request scoped bean -->
+	<listener>
+	    <listener-class>
+	        org.springframework.web.context.request.RequestContextListener
+	    </listener-class>
+	</listener>
+	
 	<!-- Processes application requests -->
+	<!-- Should be the first, Tomcat servlet container will forward to the spring dispatcher servler -->
+	<!-- How filters works: http://otndnld.oracle.co.jp/document/products/as10g/101300/B25221_03/web.1013/b14426/filters.htm#BCFDIHEJ -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -28,8 +36,7 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 		<async-supported>true</async-supported>
-	</servlet>
-		
+	</servlet>		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -59,7 +66,9 @@
 	</filter-mapping>
 
 	<!-- For improving security, cors should only be allowed to the same origin -->
-	<!-- Par défaut les requêtes simples (même withCredentials) sont acceptées par les serveurs sans filtre spécifique -->
+	<!-- Par défaut les requêtes simples (même withCredentials) sont acceptées par les serveurs sans filtre spécifique, -->
+	<!-- La sécurité se situe au niveau du navigateur qui vérifie si le Acess-Control-Allow-Origin header est positionné (non par défaut) -->
+	<!-- Cependant une première requête non préflight peut être executée sur le serveur si la conf CORS sur ce dernier n'est pas explicite. -->
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>

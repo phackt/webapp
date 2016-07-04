@@ -18,7 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gab.onewebapp.config.ApplicationDevConfig;
+import com.gab.onewebapp.config.ApplicationCommonConfig;
 import com.gab.onewebapp.dao.FileDao;
 import com.gab.onewebapp.dao.UserDao;
 import com.gab.onewebapp.model.FileEntity;
@@ -36,7 +36,7 @@ public class FileService {
 	private UserDao userDao;
 	
 	@Autowired
-	private ApplicationDevConfig appConfig;
+	private ApplicationCommonConfig appConfig;
 	
 	public FileService(){
 	}
@@ -61,7 +61,7 @@ public class FileService {
 					+ FilenameUtils.getExtension(originalFilename);
 			
 			storedFilename = 
-					StringUtils.substring(FilenameUtils.removeExtension(originalFilename),0,ApplicationDevConfig.MAX_FILENAME_LENGTH - addVersioningString.length())
+					StringUtils.substring(FilenameUtils.removeExtension(originalFilename),0,ApplicationCommonConfig.MAX_FILENAME_LENGTH - addVersioningString.length())
 					+ addVersioningString;
 			
 			//On met à jour l'entité à créer

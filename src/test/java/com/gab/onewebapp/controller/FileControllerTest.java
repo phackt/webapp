@@ -27,9 +27,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.gab.onewebapp.config.ApplicationDevConfig;
+import com.gab.onewebapp.config.ApplicationCommonConfig;
 import com.gab.onewebapp.dao.FileDao;
-import com.gab.onewebapp.model.FileEntity;
 
 /**
  * @author gabriel
@@ -52,7 +51,7 @@ public class FileControllerTest {
 	private FileDao fileDao;
 	
 	@Autowired
-	private ApplicationDevConfig appConfig;
+	private ApplicationCommonConfig appConfig;
 	
 	private MockMvc mockMvc;
 	
