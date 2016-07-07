@@ -37,5 +37,15 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="login.label.sign_in" /></button>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
+<div id="login_reco" class="alert alert-warning" role="alert">
+	<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+	<span class="sr-only">Warning:</span>
+	<strong><spring:message code="login.recommendations.header" /></strong>
+	<ul>
+		<li><spring:message code="login.recommendations.reco1" /></li>
+		<li><spring:message code="login.recommendations.reco2" /></li>
+	</ul>
+</div>
+
 
 

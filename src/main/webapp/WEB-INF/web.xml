@@ -69,13 +69,14 @@
 	<!-- Par défaut les requêtes simples (même withCredentials) sont acceptées par les serveurs sans filtre spécifique, -->
 	<!-- La sécurité se situe au niveau du navigateur qui vérifie si le Acess-Control-Allow-Origin header est positionné (non par défaut) -->
 	<!-- Cependant une première requête non préflight peut être executée sur le serveur si la conf CORS sur ce dernier n'est pas explicite. -->
+	<!-- http://tomcat.apache.org/tomcat-8.0-doc/images/cors-flowchart.png -->
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
 		<init-param>
-			<param-name>cors.allowed.origins</param-name>
-			<param-value>http://localhost</param-value>
-		</init-param>
+		    <param-name>cors.allowed.origins</param-name>
+		    <param-value>http://localhost</param-value>
+		  </init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>CorsFilter</filter-name>

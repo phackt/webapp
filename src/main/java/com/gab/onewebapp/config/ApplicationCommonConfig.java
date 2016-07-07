@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-
-//TODO: variabiliser les fichiers log4j en fonction de l'environnement
-//ne pas mettre les variables log4j dans ApplicationCommonConfig
 public abstract class ApplicationCommonConfig {
 
 	public static final Integer MAX_FILENAME_LENGTH = 255;

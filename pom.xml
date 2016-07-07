@@ -324,16 +324,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-	    <profile>
-	        <id>dev</id>
-	        <activation>
-	            <activeByDefault>true</activeByDefault>
-	            <property>
-	                <name>profile</name>
-	                <value>dev</value>
-	            </property>
-	        </activation>
-	    </profile>
-    </profiles>
 </project>

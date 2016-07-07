@@ -37,3 +37,14 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.alert#login_reco {
+	margin-top : 20px;
+	margin-left : 32.5%;
+	margin-right : 32.5%;
+	max-width: 35%;
+}
+
+#test{
+	
+}

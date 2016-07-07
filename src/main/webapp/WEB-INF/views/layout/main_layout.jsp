@@ -5,7 +5,34 @@
 <!-- http://frameworkonly.com/spring-mvc-4-tiles-3-integration/ -->
 <html>
 <head>
-	<meta name="referrer" content="<tiles:insertAttribute name="referer" ignore="true" />">
+
+<!-- script to prevent page to be framed in legacy browsers (that do no support X-Frame-Options)  -->
+<style id="antiClickjack">body{display:none !important;}</style>
+<script type="text/javascript">
+   if (self === top) {
+       var antiClickjack = document.getElementById("antiClickjack");
+       antiClickjack.parentNode.removeChild(antiClickjack);
+   } else {
+       top.location = self.location;
+   }
+</script>
+
+<%-- 	by default referer is not send for cross origin request (same-origin by default) --%>
+
+
+<%--    Spring security is automatically http security headers --%>
+<%--    http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html --%>
+<%--
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate  ==> HTTP/1.0
+Pragma: no-cache  ==> HTTP/1.1
+Expires: 0  ==> ressource is stale (périmée)
+X-Content-Type-Options: nosniff  ==> don't attempt to deduce the file format (polyglots files)
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains  ==> force browser with https connexion
+X-Frame-Options: DENY  ==> prevent page from being included into a frame (for legacy browsers, see 
+https://www.owasp.org/index.php/Clickjacking_Defense_Cheat_Sheet#Best-for-now_Legacy_Browser_Frame_Breaking_Script
+X-XSS-Protection: 1; mode=block ==> tell the browser to block page if xss is detected by the browser
+https://www.owasp.org/index.php/Testing_for_Reflected_Cross_site_scripting_(OWASP-DV-001)
+--%>
 	
 	<title><tiles:insertAttribute name="title" ignore="true" /></title>	
 	<tiles:importAttribute name="stylesheets"/>

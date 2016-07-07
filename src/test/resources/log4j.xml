@@ -38,7 +38,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.gab.onewebapp">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -63,6 +63,10 @@
 	</logger>
 	
 	<logger name="org.hibernate.tool.hbm2ddl.SchemaExport">
+		<level value="debug" />
+	</logger>
+	
+	<logger name="org.apache.catalina.filters">
 		<level value="debug" />
 	</logger>
 

@@ -9,6 +9,19 @@
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 			
 	<security:http auto-config="true">
+		<!-- prevent from calling the following ressources from another domain-->
+		<!-- child-src -->
+		<!-- connect-src -->
+		<!-- font-src -->
+		<!-- img-src -->
+		<!-- media-src -->
+		<!-- object-src -->
+		<!-- script-src -->
+		<!-- style-src -->
+		<security:headers>
+			<security:content-security-policy policy-directives="default-src 'self'" />
+		</security:headers>
+		
 		<security:intercept-url pattern="/login*" access="permitAll" />
 		<security:intercept-url pattern="/resources/**" access="permitAll" />
 		<security:intercept-url pattern="/*" access="hasRole('ROLE_USER')" />
@@ -20,6 +33,7 @@
 			password-parameter="password" />
 		<security:logout logout-url="/logout" logout-success-url="/login?action=logout"/>
 		<security:remember-me key="uniqueAndSecret" token-validity-seconds="86400"/>
+			
 	</security:http>
 	
 	<security:authentication-manager>

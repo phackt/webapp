@@ -38,7 +38,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.gab.onewebapp">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -64,6 +64,10 @@
 	
 	<logger name="org.hibernate.tool.hbm2ddl.SchemaExport">
 		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework">
+		<level value="debug" />
 	</logger>
 	
 	<!-- Root Logger -->
