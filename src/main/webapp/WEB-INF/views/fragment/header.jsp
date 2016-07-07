@@ -20,6 +20,9 @@
 			<ul class="nav navbar-nav">
 				<li><a href="<c:url value='/showFiles' />"><spring:message code="header.label.upload_files" /></a></li>
 			</ul>
+			<ul class="nav navbar-nav">
+				<li><a href="#"><spring:message code="header.label.scan_cors" /></a></li>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" 
@@ -57,7 +60,7 @@
 									<c:set var="lang" value="en" />
 								</c:otherwise>
 							</c:choose> 
-							<a href="${request.getContextPath()}?lang=${lang}">
+							<a href="<c:url value='/home' />?lang=${lang}">
 								<c:out value="${lang}"/>
 							</a>
 						</li>
