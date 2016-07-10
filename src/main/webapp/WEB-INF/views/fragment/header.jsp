@@ -35,7 +35,7 @@
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="#" onclick="$('form#formLogout').submit();">Logout</a>
+							<a href="#" id="submitFormLogout">Logout</a>
 						</li>
 						<c:url var="logoutRoute" value='/logout' />
 						<form:form action="${logoutRoute}" method="POST" id="formLogout" />

@@ -5,6 +5,17 @@
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+	<!-- Application ressources constraint for HTTPS -->
+	<security-constraint>	
+		<web-resource-collection>
+			<web-resource-name>onewebapp</web-resource-name>
+			<url-pattern>/*</url-pattern>
+			</web-resource-collection>
+			<user-data-constraint>
+				<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+			</user-data-constraint>
+	</security-constraint>
+
 	<!-- Web context parameters section -->
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
@@ -67,7 +78,7 @@
 
 	<!-- For improving security, cors should only be allowed to the same origin -->
 	<!-- Par défaut les requêtes simples (même withCredentials) sont acceptées par les serveurs sans filtre spécifique, -->
-	<!-- La sécurité se situe au niveau du navigateur qui vérifie si le Acess-Control-Allow-Origin header est positionné (non par défaut) -->
+	<!-- La sécurité se situe au niveau du navigateur qui vérifie si le Access-Control-Allow-Origin header est positionné (non par défaut) -->
 	<!-- Cependant une première requête non préflight peut être executée sur le serveur si la conf CORS sur ce dernier n'est pas explicite. -->
 	<!-- http://tomcat.apache.org/tomcat-8.0-doc/images/cors-flowchart.png -->
 	<filter>

@@ -15,8 +15,10 @@
 	        <add-attribute value="/resources/css/main.css" />
    		</put-list-attribute>
    		<put-list-attribute name="javascripts">
+   			<add-attribute value="/resources/js/clickjacking.js" />
 	        <add-attribute value="/resources/js/vendor/jquery-2.2.4.min.js" />
 	        <add-attribute value="/resources/js/vendor/bootstrap.min.js" />
+	        <add-attribute value="/resources/js/main.js" />
    		</put-list-attribute>     
     </definition>
     

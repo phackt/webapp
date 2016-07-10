@@ -12,7 +12,12 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:config/application-dev.properties")
 public class ApplicationDevConfig extends ApplicationCommonConfig {
 
+	//TODO:externaliser la datasource (jndi tomcat)
+	//TODO:Javadoc
 	//TODO:hibernate tools lancer les creation de table à partir des sql et insérer le user Admin
+	//TODO:refaire la page 403 access denied avec retour précedente page
+	//TODO:voir la pertinence de détacher les servlets dans des DefferedResult (perfs)
+
 	
 //	@Autowired
 //	DataSource dataSource;
