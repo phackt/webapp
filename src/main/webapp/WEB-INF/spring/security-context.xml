@@ -18,6 +18,8 @@
 		<!-- object-src -->
 		<!-- script-src -->
 		<!-- style-src -->
+		
+		<!-- best policy should be to use a WAF in order to filter XSS, SQL injection attacks, ... -->
 		<security:headers>
 			<security:content-security-policy policy-directives="default-src 'self'" />
 		</security:headers>
