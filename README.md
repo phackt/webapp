@@ -1,4 +1,4 @@
-# OneWebApp
+# OneWebApp  ![Travis CI build status](https://api.travis-ci.org/lepicte/OneWebApp.svg?branch=master "Travis CI build status")  [![Coverage Status](https://coveralls.io/repos/github/lepicte/OneWebApp/badge.svg?branch=master)](https://coveralls.io/github/lepicte/OneWebApp?branch=master)
 
 Une appli cas d'école limitant les vulnérabilités Web:
   - XSS
