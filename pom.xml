@@ -322,14 +322,25 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
+            <!-- Only Jacoco supports Java 8 to generate code coverage reports -->
+            <plugin>
+			    <groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>0.7.6.201602180812</version>
+			    <executions>
+			        <execution>
+			            <id>prepare-agent</id>
+			            <goals>
+			                <goal>prepare-agent</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
             <!-- Maven plugin for submitting Java code coverage reports to Coveralls web service  -->
 			<plugin>
 				<groupId>org.eluder.coveralls</groupId>
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>4.2.0</version>
-				<configuration>
-					<repoToken>R33Ad4urkyTzuxKADoFoyvVxcFIJnYs2d</repoToken>
-				</configuration>
 			</plugin>
         </plugins>
     </build>
