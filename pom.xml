@@ -322,6 +322,15 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
+            <!-- Maven plugin for submitting Java code coverage reports to Coveralls web service  -->
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>4.2.0</version>
+				<configuration>
+					<repoToken>R33Ad4urkyTzuxKADoFoyvVxcFIJnYs2d</repoToken>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 </project>
