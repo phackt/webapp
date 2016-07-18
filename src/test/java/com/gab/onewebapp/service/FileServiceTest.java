@@ -3,9 +3,12 @@ package com.gab.onewebapp.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +29,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gab.onewebapp.config.ApplicationCommonConfig;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
@@ -53,6 +57,9 @@ public class FileServiceTest {
 	@Autowired
 	private FileService fileService;
 	
+	@Autowired
+	private ApplicationCommonConfig appConfig;
+	
 	@Before
     public void setUp() {
 
@@ -61,6 +68,16 @@ public class FileServiceTest {
         SecurityContextHolder.getContext().setAuthentication(token);
 		SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
     }
+	
+	@After
+	public void tearDown(){
+		String filesUploadedPath = this.appConfig.getUploadDirPath();
+		try {
+			FileUtils.cleanDirectory(new File(filesUploadedPath));
+		} catch (IOException e) {
+			logger.error("Exception raised:",e);
+		}
+	}
 	
 	@Test
 	public void should_version_files(){

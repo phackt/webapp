@@ -38,7 +38,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.gab.onewebapp">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -67,7 +67,7 @@
 	</logger>
 	
 	<logger name="org.springframework">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 	
 	<!-- Root Logger -->

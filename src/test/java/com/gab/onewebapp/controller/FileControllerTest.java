@@ -83,7 +83,7 @@ public class FileControllerTest {
 			.andExpect(view().name(FileController.VIEW_SHOW_FILES));
 			
 			assertFalse(fileDao.findByOriginalFilename(null,fileName).isEmpty());
-			assertEquals(fileDao.findByOriginalFilename(null,fileName).get(0).getDescription(),"fichier test");
+			assertEquals(fileDao.findByOriginalFilename(null,fileName).get(0).getDescription(),"fichier test");			
 			
 		} catch (Exception e) {
 			logger.error("Exception raised:",e);
