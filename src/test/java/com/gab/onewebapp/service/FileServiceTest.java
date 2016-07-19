@@ -70,28 +70,19 @@ public class FileServiceTest {
     }
 	
 	@After
-	public void tearDown(){
+	public void tearDown() throws IOException{
 		String filesUploadedPath = this.appConfig.getUploadDirPath();
-		try {
-			FileUtils.cleanDirectory(new File(filesUploadedPath));
-		} catch (IOException e) {
-			logger.error("Exception raised:",e);
-		}
+		FileUtils.cleanDirectory(new File(filesUploadedPath));
+		new File(filesUploadedPath + File.separator + ".keep").createNewFile();
 	}
 	
 	@Test
-	public void should_version_files(){
-		try {
-			
-			String fileContent = "ceci est le contenu";
-			assertEquals((long)this.fileService.getLastVersionFromCurrentUser("fichier1.txt"), 1L);
-			this.fileService.saveOrUpdate(fileContent.getBytes(), "fichier1.txt", "fichier de test 1");
-			assertEquals((long)this.fileService.getLastVersionFromCurrentUser("fichier1.txt"), 2L);
-			assertEquals(this.fileService.findAllFromCurrentUser().size(),2);
-			
-		} catch (IOException e) {
-			logger.error("Exception raised:",e);
-		}
+	public void should_version_files() throws IOException{
+		String fileContent = "ceci est le contenu";
+		assertEquals((long)this.fileService.getLastVersionFromCurrentUser("fichier1.txt"), 1L);
+		this.fileService.saveOrUpdate(fileContent.getBytes(), "fichier1.txt", "fichier de test 1");
+		assertEquals((long)this.fileService.getLastVersionFromCurrentUser("fichier1.txt"), 2L);
+		assertEquals(this.fileService.findAllFromCurrentUser().size(),2);
 	}
 	
 	@Test

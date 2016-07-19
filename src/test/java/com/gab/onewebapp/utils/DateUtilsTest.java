@@ -20,18 +20,14 @@ public class DateUtilsTest {
 	private static final Logger logger = LoggerFactory.getLogger(DateUtilsTest.class);
 	
 	@Test
-	public void should_format_date_thanks_to_locale() {
+	public void should_format_date_thanks_to_locale() throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date date;
-		try {
-			date = sdf.parse("21/12/2016");
-			
-			assertEquals("12/21/2016",DateUtils.formatDate(date, new Locale("EN","en")));
-			assertEquals("21/12/2016",DateUtils.formatDate(date, new Locale("FR","fr")));
-		} catch (ParseException e) {
-			logger.error("Exception raised:",e);
-		}
+
+		date = sdf.parse("21/12/2016");
 		
+		assertEquals("12/21/2016",DateUtils.formatDate(date, new Locale("EN","en")));
+		assertEquals("21/12/2016",DateUtils.formatDate(date, new Locale("FR","fr")));		
 		
 	}
 

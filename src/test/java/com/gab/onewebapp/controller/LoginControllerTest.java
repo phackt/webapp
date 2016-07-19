@@ -1,8 +1,9 @@
 package com.gab.onewebapp.controller;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import javax.servlet.Filter;
 
@@ -39,8 +40,8 @@ public class LoginControllerTest {
 	@Autowired
     private WebApplicationContext wac;
 	
-	 @Autowired
-	 private Filter springSecurityFilterChain;
+	@Autowired
+	private Filter springSecurityFilterChain;
 	 
 	private MockMvc mockMvc;
 	
@@ -53,15 +54,10 @@ public class LoginControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_be_successfully_logged() {
+	public void should_be_successfully_logged() throws Exception {
 		
-		try {
-			this.mockMvc.perform(get(HomeController.ROUTE_HOME).with(user("user").password("user").roles("USER")))
-			.andExpect(status().isOk())
-			.andExpect(view().name(HomeController.VIEW_HOME));			
-			
-		} catch (Exception e) {
-			logger.error("Exception raised:",e);
-		}
+		this.mockMvc.perform(get(HomeController.ROUTE_HOME).with(user("user").password("user").roles("USER")))
+		.andExpect(status().isOk())
+		.andExpect(view().name(HomeController.VIEW_HOME));			
 	}
 }

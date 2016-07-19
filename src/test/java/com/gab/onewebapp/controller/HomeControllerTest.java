@@ -45,15 +45,10 @@ public class HomeControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_route_to_homepage() {
+	public void should_route_to_homepage() throws Exception {
 				
-		try {
-			this.mockMvc.perform(get(HomeController.ROUTE_HOME))
-			.andExpect(status().isOk())
-			.andExpect(view().name(HomeController.VIEW_HOME));
-			
-		} catch (Exception e) {
-			logger.error("Exception raised:",e);
-		}
+		this.mockMvc.perform(get(HomeController.ROUTE_HOME))
+		.andExpect(status().isOk())
+		.andExpect(view().name(HomeController.VIEW_HOME));
 	}
 }
