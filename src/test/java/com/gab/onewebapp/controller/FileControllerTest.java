@@ -2,7 +2,9 @@ package com.gab.onewebapp.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -50,6 +52,7 @@ import com.gab.onewebapp.dao.FileDao;
 	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml"),
 	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"),
 	@ContextConfiguration("classpath:/spring/security-context-test.xml")
+	//@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/security-context.xml")
 })
 public class FileControllerTest {
 
@@ -73,7 +76,7 @@ public class FileControllerTest {
     public void setUp() {
         this.mockMvc = MockMvcBuilders
         		.webAppContextSetup(this.wac)
-        		.addFilters(springSecurityFilterChain)
+        		.apply(springSecurity())
         		.build();
     }
 	
@@ -106,10 +109,12 @@ public class FileControllerTest {
 		FilesUploadForm filesUploadForm = new FilesUploadForm();
 		filesUploadForm.setFilesUploaded(listFileUpload);	
 		
+		//TODO: check why csrf() is not working
 		this.mockMvc.perform(
 				post(FileController.ROUTE_UPLOAD_FILE)
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)	
-				.with(user("user").password("user").authorities(authorities))					
+				.with(user("user").password("user").authorities(authorities))
+				//.with(csrf())
 				.flashAttr("filesUploadForm",filesUploadForm)				
 		)
 		.andExpect(status().isOk())

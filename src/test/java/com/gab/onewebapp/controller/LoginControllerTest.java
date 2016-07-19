@@ -1,6 +1,7 @@
 package com.gab.onewebapp.controller;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -48,7 +49,7 @@ public class LoginControllerTest {
 	@Before
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
-        		.addFilters(springSecurityFilterChain)
+        		.apply(springSecurity())
                 .build();
     }
 	
