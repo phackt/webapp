@@ -1,11 +1,9 @@
-package com.gab.onewebapp.service;
+package com.gab.onewebapp.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.util.Set;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,9 +20,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gab.onewebapp.core.enums.UserProfileType;
 import com.gab.onewebapp.model.UserEntity;
-import com.gab.onewebapp.model.UserProfileEntity;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
@@ -36,44 +32,45 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @WebAppConfiguration
 @ContextHierarchy({
 	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml"),
-	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"),
-	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/security-context.xml")
+	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml")
 })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 	DirtiesContextTestExecutionListener.class,
 	TransactionalTestExecutionListener.class,
 	DbUnitTestExecutionListener.class })
 @Transactional
-@DatabaseSetup("/dbtest/sample-userDaoTest.xml")
-public class UserServiceTest {
+@DatabaseSetup("/dbtest/sample-fileDaoTest.xml")
+public class UserDaoTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(UserDaoTest.class);
+	
 	@Autowired
-	private UserService userService;
+	private UserDao userDao;
 	
 	@Test
-	public void should_get_user_role(){
-		
-		UserEntity userEntity = this.userService.findByUsername("user");
-		Set<UserProfileEntity> userProfiles = userEntity.getUserProfiles();
-		
-		assertFalse(userProfiles.isEmpty());
-		assertEquals(userProfiles.iterator().next().getUserProfileType(), UserProfileType.USER);
+	public void should_find_all(){
+		assertEquals(userDao.findAll().size(), 2);
 	}
 	
 	@Test
-	public void should_delete_user_with_id(){
-		this.userService.deleteUser(0L);
-		assertNull(this.userService.findById(0));
+	public void should_return_number_of_users(){
+		assertEquals(userDao.numberOfUsers(),2);
 	}
 	
 	@Test
 	public void should_save_or_update(){
-		UserEntity userEntity = this.userService.findByUsername("user");
+		UserEntity userEntity = userDao.findByUsername("user1");
 		userEntity.setUsername("user_updated");
-		this.userService.saveOrUpdate(userEntity);
-		assertNotNull(this.userService.findByUsername("user_updated"));
+		userEntity.setEnabled(true);
+		userEntity.setLocked(true);
+		userEntity.setExpired(true);
+		userEntity.setCredentialsExpired(true);	
+		userDao.saveOrUpdate(userEntity);
+		UserEntity userEntityUpdated = userDao.findByUsername("user_updated");
+		assertNotNull(userEntityUpdated);	
+		assertTrue(userEntityUpdated.isEnabled());
+		assertFalse(userEntityUpdated.isAccountNonLocked());
+		assertFalse(userEntityUpdated.isAccountNonExpired());
+		assertFalse(userEntityUpdated.isCredentialsNonExpired());
 	}
-	
 }

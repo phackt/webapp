@@ -3,6 +3,10 @@ language:
   
 jdk: 
   - oraclejdk8
+
+notifications:
+  # Email notifications are disabled to not annoy anybody.
+  email: false
   
 after_success:
   - mvn jacoco:report coveralls:report
