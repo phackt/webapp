@@ -154,7 +154,6 @@ public class UserEntity {
 		}
 		UserEntity other = (UserEntity) obj;
 		return new EqualsBuilder()
-			.appendSuper(super.equals(obj))
 			.append(this.getId(), other.getId())
 			.append(this.getUsername(), other.getUsername())
 			.isEquals();

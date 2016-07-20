@@ -83,7 +83,6 @@ public class PermissionEntity {
 		}
 		PermissionEntity other = (PermissionEntity) obj;
 		return new EqualsBuilder()
-			.appendSuper(super.equals(obj))
 			.append(this.getId(), other.getId())
 			.append(this.permissionType.toString(), other.getPermissionType().toString())
 			.isEquals();

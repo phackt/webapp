@@ -145,7 +145,6 @@ public class FileEntity {
 		}
 		FileEntity other = (FileEntity) obj;
 		return new EqualsBuilder()
-			.appendSuper(super.equals(obj))
 			.append(this.getId(), other.getId())
 			.append(this.getOriginalFilename(), other.getOriginalFilename())
 			.isEquals();

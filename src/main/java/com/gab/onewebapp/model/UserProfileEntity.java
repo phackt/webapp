@@ -103,7 +103,6 @@ public class UserProfileEntity {
 		}
 		UserProfileEntity other = (UserProfileEntity) obj;
 		return new EqualsBuilder()
-			.appendSuper(super.equals(obj))
 			.append(this.getId(), other.getId())
 			.append(this.userProfileType.toString(), other.getUserProfileType().toString())
 			.isEquals();

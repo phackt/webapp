@@ -1,13 +1,17 @@
 package com.gab.onewebapp.controller;
 
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import javax.servlet.Filter;
-
+import org.hamcrest.core.IsNot;
+import org.hamcrest.text.IsEmptyString;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,9 +44,6 @@ public class LoginControllerTest {
 	
 	@Autowired
     private WebApplicationContext wac;
-	
-	@Autowired
-	private Filter springSecurityFilterChain;
 	 
 	private MockMvc mockMvc;
 	
@@ -55,10 +56,35 @@ public class LoginControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_be_successfully_logged() throws Exception {
+	public void should_display_login_page_no_action() throws Exception {
 		
-		this.mockMvc.perform(get(HomeController.ROUTE_HOME).with(user("user").password("user").roles("USER")))
+		this.mockMvc.perform(get(LoginController.ROUTE_LOGIN))
 		.andExpect(status().isOk())
-		.andExpect(view().name(HomeController.VIEW_HOME));			
+		.andExpect(model().attribute("msgLoginController", isEmptyOrNullString()))
+		.andExpect(view().name(LoginController.VIEW_LOGIN));			
+	}
+	
+	@Test
+	@Transactional
+	public void should_display_login_page_error() throws Exception {
+		
+		this.mockMvc.perform(get(LoginController.ROUTE_LOGIN)
+				.param("action", "error")
+				)
+		.andExpect(status().isOk())
+		.andExpect(model().attribute("msgLoginController", not(isEmptyOrNullString())))
+		.andExpect(view().name(LoginController.VIEW_LOGIN));			
+	}
+	
+	@Test
+	@Transactional
+	public void should_display_login_page_logout() throws Exception {
+		
+		this.mockMvc.perform(get(LoginController.ROUTE_LOGIN)
+				.param("action", "logout")
+				)
+		.andExpect(status().isOk())
+		.andExpect(model().attribute("msgLoginController", not(isEmptyOrNullString())))
+		.andExpect(view().name(LoginController.VIEW_LOGIN));			
 	}
 }

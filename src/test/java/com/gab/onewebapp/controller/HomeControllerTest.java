@@ -1,5 +1,6 @@
 package com.gab.onewebapp.controller;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -45,10 +46,10 @@ public class HomeControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_route_to_homepage() throws Exception {
-				
-		this.mockMvc.perform(get(HomeController.ROUTE_HOME))
+	public void should_be_successfully_logged() throws Exception {
+		
+		this.mockMvc.perform(get(HomeController.ROUTE_HOME).with(user("user").password("user").roles("USER")))
 		.andExpect(status().isOk())
-		.andExpect(view().name(HomeController.VIEW_HOME));
-	}
+		.andExpect(view().name(HomeController.VIEW_HOME));			
+	}	
 }

@@ -44,7 +44,6 @@ public class LoginController {
 			switch(action){
 			case "error":
 				msgLoginController = this.messageSource.getMessage("loginController.error.invalid_user_pass", null, LocaleContextHolder.getLocale());
-;
 				isErrorClassActive = true;
 				break;
 			case "logout":
