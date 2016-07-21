@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -49,6 +50,15 @@ public class HomeControllerTest {
 	public void should_be_successfully_logged() throws Exception {
 		
 		this.mockMvc.perform(get(HomeController.ROUTE_HOME).with(user("user").password("user").roles("USER")))
+		.andExpect(status().isOk())
+		.andExpect(view().name(HomeController.VIEW_HOME));			
+	}	
+	
+	@Test
+	@WithUserDetails("user") 
+	public void should_be_logged_with_custom_ud() throws Exception {
+		
+		this.mockMvc.perform(get(HomeController.ROUTE_HOME))
 		.andExpect(status().isOk())
 		.andExpect(view().name(HomeController.VIEW_HOME));			
 	}	

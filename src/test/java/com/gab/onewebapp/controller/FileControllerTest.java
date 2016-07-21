@@ -113,20 +113,27 @@ public class FileControllerTest {
 	@Test
 	@Transactional
 	public void should_be_success_when_file_uploaded() throws Exception {
-		final String fileName = "test.txt";
-		final byte[] content = "Hello Word".getBytes();
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", fileName, "text/plain", content);
+		final String fileName1 = "test1.txt";
+		final String fileName2 = "test2.txt";
+		final byte[] content1 = "Hello Word First".getBytes();
+		final byte[] content2 = "Hello Word Second".getBytes();
 		
+		MockMultipartFile mockMultipartFile1 = new MockMultipartFile("file1", fileName1, "text/plain", content1);
+		MockMultipartFile mockMultipartFile2 = new MockMultipartFile("file2", fileName2, "text/plain", content2);
+
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		authorities.add(new SimpleGrantedAuthority("PERM_UPLOAD_FILE"));
 		
-		FileUpload fileUpload = new FileUpload();
-		fileUpload.setFile(mockMultipartFile);
-		fileUpload.setDescription("fichier test");
+		FileUpload fileUpload1 = new FileUpload();
+		fileUpload1.setFile(mockMultipartFile1);
+		fileUpload1.setDescription("fichier test 1");
+		
+		FileUpload fileUpload2 = new FileUpload(mockMultipartFile2,"fichier test 2");
 		
 		List<FileUpload> listFileUpload = new ArrayList<FileUpload>();
-		listFileUpload.add(fileUpload);
+		listFileUpload.add(fileUpload1);
+		listFileUpload.add(fileUpload2);
 		
 		FilesUploadForm filesUploadForm = new FilesUploadForm();
 		filesUploadForm.setFilesUploaded(listFileUpload);	
@@ -142,8 +149,10 @@ public class FileControllerTest {
 		.andExpect(status().isOk())
 		.andExpect(view().name(FileController.VIEW_SHOW_FILES));
 		
-		assertFalse(fileDao.findByOriginalFilename(null,fileName).isEmpty());
-		assertEquals(fileDao.findByOriginalFilename(null,fileName).get(0).getDescription(),"fichier test");			
+		assertFalse(fileDao.findByOriginalFilename(null,fileName1).isEmpty());
+		assertEquals(fileDao.findByOriginalFilename(null,fileName1).get(0).getDescription(),"fichier test 1");
+		assertFalse(fileDao.findByOriginalFilename(null,fileName2).isEmpty());
+		assertEquals(fileDao.findByOriginalFilename(null,fileName2).get(0).getDescription(),"fichier test 2");
 			
 	}
 	
