@@ -28,7 +28,7 @@ Quelques préconisations identifiées pour sécuriser votre web app:
 Comment s'en prémunir;
 - Double backquote sur les valeurs HTML (class='${className}' est vulnérable, même si les html special caractères sont échappés)
 - Echapper donc coté serveur les caractères HTML (tester les fonctions de fraweworks de rendu que vous utilisez). <br />Si JSTL, les caractères sont automatiquement échappés. EL (scriptlet) est cependant vulnérable aux XSS.<br />Autre exemple si PHP, utilisez htmlentities (avec l'option ENT_QUOTES), ou htmlspecialchars.
-- Vous pouvez également protéger votre application derrière un Web Application Firewall (ex: ModSecurity)
+- Vous pouvez également protéger votre application derrière un Web Application Firewall (ex: ModSecurity - http://www.modsecurity.org/)
 - Spring Security inclut par défaut de nombreux headers dans la réponse HTTP;
     - **X-Content-Type-Options**: Stipule de ne pas déviner le MIME-Type si mal renseigné
     - **X-XSS-Protection**: Stipule d'activer le filtre XSS du navigateur
@@ -45,9 +45,9 @@ Comment s'en prémunir;
 ### Cross Origin Resource Sharing
 
 Les requêtes CORS interviennent lorsque l'hôte cible est différent de l'origine de la ressource initiant la requête. <br />
-Ceci ne concernant pas les élements HTML classiques tels que les balises IMG, SCRIPT, STYLE, etc, mais principalement les XMLHttpRequest.Il existe deux types de requêtes CORS, les simples (idempotentes -- GET, POST), et les préflight (PUT, DELETE, ou requêtes GET/POST avec header spécifique (ex Authorization)).
+Ceci ne concernant pas les élements HTML classiques tels que les balises IMG, SCRIPT, STYLE, etc, mais principalement les XMLHttpRequest. Il existe deux types de requêtes CORS, les simples (idempotentes -- GET, POST), et les préflight (PUT, DELETE, ou requêtes GET/POST avec header spécifique (ex Authorization)).
 
-Les requêtes CORS peuvent être autorisées (ou bloquées au niveau du serveur) -- CorsFilter sous Tomcat (> 7).<br />Si notre application WEB ne doit pas partager de ressources à des sites tiers, il convient de les bloquer explicitement (erreur 403 retournée) au lieu de déléguer la sécurité au navigateur.<br />Le navigateur bloquera l'accès à la réponse en l'absence d'un header Access-Control-Allow-Origin, cependant le serveur aura interprété la requête comme une requête classique (code 200 retourné).<br /> *Attention une requête simple CORS POST withCredentials envoie votre cookie dans la requête sur le site tiers*.
+Les requêtes CORS peuvent être autorisées (ou bloquées au niveau du serveur) -- CorsFilter sous Tomcat (> 7).<br />Si notre application WEB ne doit pas partager de ressources à des sites tiers, il convient de les bloquer explicitement (erreur 403 retournée) au lieu de déléguer la sécurité au navigateur.<br />Le navigateur bloquera l'accès à la réponse en l'absence d'un header Access-Control-Allow-Origin, cependant le serveur aura déjà interprété cette requête comme une requête classique et donc valide (code 200 retourné).<br /> *Attention une requête simple CORS POST withCredentials envoie votre cookie dans la requête sur le site tiers*.
 
 ### HTTPS
 Spring security intégre également par défaut la politique HTTP Strict Transport Security (header Strict-Transport-Security), qui spécifie au navigateur d'interpréter toutes les requêtes over SSL.<br />Il est primordial de crypter les échanges avec un certificat signé par une CA.
