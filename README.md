@@ -1,4 +1,4 @@
-# DemoWebApp  ![Travis CI build status](https://travis-ci.org/lepicte/DemoWebApp.svg?branch=master "Travis CI build status")  [![Coverage Status](https://coveralls.io/repos/github/lepicte/OneWebApp/badge.svg?branch=master)](https://coveralls.io/github/lepicte/OneWebApp?branch=master)
+# DemoWebApp  ![Travis CI build status](https://travis-ci.org/lepicte/DemoWebApp.svg?branch=master "Travis CI build status")  [![Coverage Status](https://coveralls.io/repos/github/lepicte/DemoWebApp/badge.svg?branch=master)](https://coveralls.io/github/lepicte/DemoWebApp?branch=master)
 
 Une appli cas d'école limitant les vulnérabilités Web:
   - XSS
@@ -54,7 +54,7 @@ Spring security intégre également par défaut la politique HTTP Strict Transpo
 
 Il est également important de connaitre si les parties tiers utilisées (framework Java, JS, ...) sont exemptes de vulnérabilités.
 
-***Cette application utilise HSTS, vous devez avoir configuré votre serveur pour autoriser les connexion SSL.<br />Un certificat self-signed est présent dans crt/onewebapp.crt. Ceci ne sert que pour une utilisation en local, sinon il convient de créer un certificat signé par une CA.***
+***Cette application utilise HSTS, vous devez avoir configuré votre serveur pour autoriser les connexion SSL.<br />Un certificat self-signed est présent dans crt/demowebapp.crt. Ceci ne sert que pour une utilisation en local, sinon il convient de créer un certificat signé par une CA.***
 
 ### Réferences
 http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html<br />

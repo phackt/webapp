@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>com.gab</groupId>
-	<artifactId>onewebapp</artifactId>
+	<artifactId>demowebapp</artifactId>
 	<name>Spring web app</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
