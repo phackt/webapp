@@ -2,6 +2,8 @@ package com.gab.onewebapp.model;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -28,7 +30,9 @@ public class FileEntityTest {
 	@Test
 	public void should_be_equals(){
 		FileEntity fe1 = new FileEntity();
-		FileEntity fe2 = new FileEntity();
+		
+		UserEntity ue = new UserEntity();
+		FileEntity fe2 = new FileEntity(ue,"fichier.txt","fichier.txt","fichier de test", new Date());
 		
 		fe1.setId(0);
 		fe1.setOriginalFilename("fichier.txt");
