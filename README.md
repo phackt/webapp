@@ -1,6 +1,5 @@
 # DemoWebApp  ![Travis CI build status](https://travis-ci.org/lepicte/DemoWebApp.svg?branch=master "Travis CI build status")  [![Coverage Status](https://coveralls.io/repos/github/lepicte/DemoWebApp/badge.svg?branch=master)](https://coveralls.io/github/lepicte/DemoWebApp?branch=master)
 
-
 Une appli cas d'école limitant les vulnérabilités Web:
   - XSS
   - CSRF
