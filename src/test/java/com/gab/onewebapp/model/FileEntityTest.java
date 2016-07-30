@@ -30,16 +30,24 @@ public class FileEntityTest {
 	@Test
 	public void should_be_equals(){
 		FileEntity fe1 = new FileEntity();
+		Date date = new Date();
 		
 		UserEntity ue = new UserEntity();
-		FileEntity fe2 = new FileEntity(ue,"fichier.txt","fichier.txt","fichier de test", new Date());
+		ue.setUsername("user");
+		FileEntity fe2 = new FileEntity(ue,"fichier.txt","fichier.txt","fichier de test", date);
 		
 		fe1.setId(0);
 		fe1.setOriginalFilename("fichier.txt");
+		fe1.setDateUpload(date);
+		fe1.setUser(ue);
 		
 		fe2.setId(0);
 		fe2.setOriginalFilename("fichier.txt");
 		
 		assertTrue(fe1.equals(fe2));
+		assertTrue(fe1.getDateUpload().compareTo(fe2.getDateUpload()) == 0);
+		
+		FileEntity fe3 = fe2;
+		assertTrue(fe2.toString().equals(fe3.toString()));
 	}
 }
