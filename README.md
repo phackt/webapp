@@ -17,7 +17,7 @@ Les technologies:
   - Tiles
   - And much more...
 
-Pour se logguer: user/user
+Pour se loguer: user/user
 
 A venir: développement d'un scanner de sites ayant une configuration CORS permissive.
 
