@@ -17,6 +17,10 @@ Les technologies:
   - Tiles
   - And much more...
 
+Pour se logguer: user/user
+
+A venir: développement d'un scanner de sites ayant une configuration CORS permissive.
+
 Quelques préconisations identifiées pour sécuriser votre web app:
 
 > Il convient de faire le lien entre différentes vulnérabilités comme

@@ -29,7 +29,7 @@
 		
 		<!-- Angular + Rest controller -->
 		<div class="col-lg-4 col-sm-6 text-center">
-			<img usemap="#image-map" 
+			<img usemap="#" 
 				class="img-circle img-responsive img-center" 
 				src="<c:url value='/resources' />/images/angularjs_logo_200x200.png" 
 				alt="Scan for CORS">
