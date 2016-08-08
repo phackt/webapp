@@ -14,7 +14,7 @@
 				<span class="sr-only">Toggle navigation</span> 
 				<span class="icon-bar"></span> 
 			</button>
-			<a class="navbar-brand" href="<c:url value='/home' />">OneWebApp</a>
+			<a class="navbar-brand" href="<c:url value='/home' />">DemoWebApp</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
