@@ -66,3 +66,4 @@ http://www.veracode.com/directory/owasp-top-10<br />
 https://www.owasp.org/index.php/Main_Page<br />
 https://tomcat.apache.org/tomcat-8.0-doc/config/filter.html#CORS_Filter<br />
 https://www.w3.org/TR/cors/<br />
+http://news.netcraft.com/archives/2016/03/17/95-of-https-servers-vulnerable-to-trivial-mitm-attacks.html<br />
