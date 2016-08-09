@@ -30,9 +30,9 @@ Quelques préconisations identifiées pour sécuriser votre web app:
 
 ### XSS
 Comment s'en prémunir;
-- Double backquote sur les valeurs HTML (class='${className}' est vulnérable, même si les html special caractères sont échappés)
-- Echapper donc coté serveur les caractères HTML (tester les fonctions de fraweworks de rendu que vous utilisez). <br />Si JSTL, les caractères sont automatiquement échappés. EL (scriptlet) est cependant vulnérable aux XSS.<br />Autre exemple si PHP, utilisez htmlentities (avec l'option ENT_QUOTES), ou htmlspecialchars.
+- Echappez les caractères HTML (testez les fonctions d'échappement du frawework de rendu que vous utilisez). <br />Si JSTL, les caractères sont automatiquement échappés. EL et scriptlet sont cependant vulnérables aux XSS.<br />Autre exemple si PHP, utilisez htmlentities (avec l'option ENT_QUOTES pour échapper le '), ou htmlspecialchars.
 - Vous pouvez également protéger votre application derrière un Web Application Firewall (ex: ModSecurity - http://www.modsecurity.org/)
+- N'hésitez pas à éprouver votre application avec un outil tel que [Xenotix](https://www.owasp.org/index.php/OWASP_Xenotix_XSS_Exploit_Framework "https://www.owasp.org/index.php/OWASP_Xenotix_XSS_Exploit_Framework") ou le support [OWASP XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet "https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet")
 - Spring Security inclut par défaut de nombreux headers dans la réponse HTTP;
     - **X-Content-Type-Options**: Stipule de ne pas déviner le MIME-Type si mal renseigné
     - **X-XSS-Protection**: Stipule d'activer le filtre XSS du navigateur
@@ -63,7 +63,7 @@ Il est également important de connaitre si les parties tiers utilisées (framew
 ### Réferences
 http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html<br />
 http://www.veracode.com/directory/owasp-top-10<br />
-https://www.owasp.org/index.php/Main_Page<br />
+https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet<br />
 https://tomcat.apache.org/tomcat-8.0-doc/config/filter.html#CORS_Filter<br />
 https://www.w3.org/TR/cors/<br />
 http://news.netcraft.com/archives/2016/03/17/95-of-https-servers-vulnerable-to-trivial-mitm-attacks.html<br />
