@@ -1,0 +1,4 @@
+## Exclude paths for code climate
+exclude_paths:
+  - "**/test/"
+  - "**/vendor/"
