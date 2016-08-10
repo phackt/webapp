@@ -1,4 +1,4 @@
-# DemoWebApp  ![Travis CI build status](https://travis-ci.org/lepicte/DemoWebApp.svg?branch=master "Travis CI build status")  [![Coverage Status](https://coveralls.io/repos/github/lepicte/DemoWebApp/badge.svg?branch=master)](https://coveralls.io/github/lepicte/DemoWebApp?branch=master)
+# DemoWebApp  ![Travis CI build status](https://travis-ci.org/phackt/DemoWebApp.svg?branch=master "Travis CI build status")  [![Coverage Status](https://coveralls.io/repos/github/phackt/DemoWebApp/badge.svg?branch=master)](https://coveralls.io/github/phackt/DemoWebApp?branch=master) [![Code Climate](https://codeclimate.com/github/phackt/DemoWebApp/badges/gpa.svg)](https://codeclimate.com/github/phackt/DemoWebApp)
 
 Une appli cas d'école limitant les vulnérabilités Web:
   - XSS
