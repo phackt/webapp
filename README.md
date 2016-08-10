@@ -60,6 +60,7 @@ Il est également important de connaitre si les parties tiers utilisées (framew
 
 ***Cette application utilise HSTS, vous devez avoir configuré votre serveur pour autoriser les connexion SSL.<br />Un certificat self-signed est présent dans crt/demowebapp.crt. Ceci ne sert que pour une utilisation en local, sinon il convient de créer un certificat signé par une CA.***
   
+   
   
 ### Réferences
 http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html<br />
