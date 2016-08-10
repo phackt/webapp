@@ -26,8 +26,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -75,8 +73,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @DatabaseSetup("/dbtest/sample-fileDaoTest.xml")
 public class FileControllerTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(FileControllerTest.class);
-	
 	@Autowired
     private WebApplicationContext wac;
 	

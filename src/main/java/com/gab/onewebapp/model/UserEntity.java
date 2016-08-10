@@ -58,9 +58,6 @@ public class UserEntity {
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	private Set<FileEntity> files;
-	
-	public UserEntity() {
-	}
 
 	public long getId() {
 		return id;

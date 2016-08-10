@@ -6,8 +6,6 @@ import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,8 +22,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 	@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"),
 })
 public class FileEntityTest {
-
-	private static final Logger logger = LoggerFactory.getLogger(FileEntityTest.class);
 
 	@Test
 	public void should_be_equals(){

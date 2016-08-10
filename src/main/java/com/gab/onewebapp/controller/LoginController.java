@@ -52,6 +52,7 @@ public class LoginController {
 			default:
 				msgLoginController = this.messageSource.getMessage("generic.error", null, LocaleContextHolder.getLocale());
 				isErrorClassActive = true;
+				break;
 			}
 		}
 		

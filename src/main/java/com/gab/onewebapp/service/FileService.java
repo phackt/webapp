@@ -38,9 +38,6 @@ public class FileService {
 	@Autowired
 	private ApplicationCommonConfig appConfig;
 	
-	public FileService(){
-	}
-	
 	@Transactional
 	public void saveOrUpdate(byte[] bytesFilename, String originalFilename, String description) throws IOException{
 		

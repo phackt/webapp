@@ -10,8 +10,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
@@ -45,8 +43,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @Transactional
 @DatabaseSetup("/dbtest/sample-fileDaoTest.xml")
 public class FileDaoTest {
-
-	private static final Logger logger = LoggerFactory.getLogger(FileDaoTest.class);
 
 	@Autowired
 	private FileDao fileDao;
@@ -112,7 +108,6 @@ public class FileDaoTest {
 		Long id = fileEntity.getId();
 		fileDao.delete(fileEntity);
 		
-		List<FileEntity> list = fileDao.findAll(user1.getUsername());
 		assertNull(fileDao.findById(id));
 	}
 }

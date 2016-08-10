@@ -52,8 +52,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @DatabaseSetup("/dbtest/sample-fileDaoTest.xml")
 public class FileServiceTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(FileServiceTest.class);
-
 	@Autowired
 	private FileService fileService;
 	

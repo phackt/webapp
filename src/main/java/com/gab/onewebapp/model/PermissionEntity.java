@@ -35,9 +35,6 @@ public class PermissionEntity {
 	
 	@ManyToMany(mappedBy = "permissions")
 	private Set<UserProfileEntity> userProfileEntities = new HashSet<UserProfileEntity>();
-		
-	public PermissionEntity() {
-	}
 
 	public long getId() {
 		return id;

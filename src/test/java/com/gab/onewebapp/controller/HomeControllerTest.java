@@ -8,8 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ContextConfiguration;
@@ -33,8 +31,6 @@ import org.springframework.web.context.WebApplicationContext;
 })
 public class HomeControllerTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeControllerTest.class);
-	
 	@Autowired
     private WebApplicationContext wac;
 	

@@ -46,9 +46,6 @@ public class UserProfileEntity {
 			inverseJoinColumns = { 
 			@JoinColumn(name = "permission_id", nullable = false, updatable = false) })
 	private Set<PermissionEntity> permissions = new HashSet<PermissionEntity>();
-	
-	public UserProfileEntity() {
-	}
 
 	public long getId() {
 		return id;

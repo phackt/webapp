@@ -47,8 +47,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @DatabaseSetup("/dbtest/sample-userDaoTest.xml")
 public class UserServiceTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
-
 	@Autowired
 	private UserService userService;
 	

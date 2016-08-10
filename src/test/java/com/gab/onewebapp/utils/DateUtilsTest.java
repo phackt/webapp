@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author gabriel
@@ -17,8 +15,6 @@ import org.slf4j.LoggerFactory;
  */
 public class DateUtilsTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(DateUtilsTest.class);
-	
 	@Test
 	public void should_format_date_thanks_to_locale() throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
