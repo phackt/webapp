@@ -49,6 +49,9 @@ public class LoginController {
 			case "logout":
 				msgLoginController = this.messageSource.getMessage("loginController.label.logout_success", null, LocaleContextHolder.getLocale());
 				break;
+			default:
+				msgLoginController = this.messageSource.getMessage("generic.error", null, LocaleContextHolder.getLocale());
+				isErrorClassActive = true;
 			}
 		}
 		

@@ -15,7 +15,7 @@ public abstract class ApplicationCommonConfig {
 	public static final Integer MAX_FILENAME_LENGTH = 255;
 	
 	@Autowired
-	ServletContext servletContext;
+	private ServletContext servletContext;
 	
 	@NotNull
 	@Value("${file.uploadDirPath}")
