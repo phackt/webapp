@@ -1,4 +1,4 @@
-# DemoWebApp  ![Travis CI build status](https://travis-ci.org/phackt/DemoWebApp.svg?branch=master "Travis CI build status")  [![Coverage Status](https://coveralls.io/repos/github/phackt/DemoWebApp/badge.svg?branch=master)](https://coveralls.io/github/phackt/DemoWebApp?branch=master) [![Code Climate](https://codeclimate.com/github/phackt/DemoWebApp/badges/gpa.svg)](https://codeclimate.com/github/phackt/DemoWebApp)
+# DemoWebApp  ![Travis CI build status](https://travis-ci.org/phackt/DemoWebApp.svg?branch=master "Travis CI build status")  [![Coverage Status](https://coveralls.io/repos/github/phackt/DemoWebApp/badge.svg?branch=master)](https://coveralls.io/github/phackt/DemoWebApp?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0805b1bf41734f8c8cb7a3d739b0a429)](https://www.codacy.com/app/gabriel-compan/DemoWebApp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=phackt/DemoWebApp&amp;utm_campaign=Badge_Grade)
 
 Une appli cas d'école limitant les vulnérabilités Web:
   - XSS
@@ -59,7 +59,8 @@ Spring security intégre également par défaut la politique HTTP Strict Transpo
 Il est également important de connaitre si les parties tiers utilisées (framework Java, JS, ...) sont exemptes de vulnérabilités.
 
 ***Cette application utilise HSTS, vous devez avoir configuré votre serveur pour autoriser les connexion SSL.<br />Un certificat self-signed est présent dans crt/demowebapp.crt. Ceci ne sert que pour une utilisation en local, sinon il convient de créer un certificat signé par une CA.***
-
+  
+  
 ### Réferences
 http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html<br />
 http://www.veracode.com/directory/owasp-top-10<br />
