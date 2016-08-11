@@ -19,7 +19,7 @@ Les technologies:
 
 Pour se loguer: user/user
 
-A venir: développement d'un scanner de sites ayant une configuration CORS permissive.
+*A venir: développement d'un scanner de sites ayant une configuration CORS permissive.*
 
 Quelques préconisations identifiées pour sécuriser votre web app:
 
