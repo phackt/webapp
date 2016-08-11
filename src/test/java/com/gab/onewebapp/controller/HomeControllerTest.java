@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -49,4 +50,12 @@ public class HomeControllerTest {
 		.andExpect(view().name(HomeController.VIEW_HOME));			
 	}	
 	
+	@Test
+	@WithUserDetails("user") 
+	public void shouldBeSuccessfullyLoggedWithAnnotation() throws Exception {
+		
+		this.mockMvc.perform(get(HomeController.ROUTE_HOME))
+		.andExpect(status().isOk())
+		.andExpect(view().name(HomeController.VIEW_HOME));			
+	}	
 }
