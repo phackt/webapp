@@ -108,7 +108,7 @@ public class FileControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_be_success_when_file_uploaded() throws Exception {
+	public void shouldBeSuccessWhenFileUploaded() throws Exception {
 		final String fileName1 = "test1.txt";
 		final String fileName2 = "test2.txt";
 		final byte[] content1 = "Hello Word First".getBytes();
@@ -154,7 +154,7 @@ public class FileControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_be_succes_when_showing_user_files() throws Exception {
+	public void shouldBeSuccessWhenShowingUserFiles() throws Exception {
 
 		this.mockMvc.perform(
 				get(FileController.ROUTE_SHOW_FILES)			
@@ -168,7 +168,7 @@ public class FileControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_be_succes_when_deleting_user_files() throws Exception {
+	public void shouldBeSuccessWhenDeletingUserFiles() throws Exception {
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -187,7 +187,7 @@ public class FileControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_be_success_when_downloading_user_files() throws Exception {
+	public void shouldBeSuccessWhenDownloadingUserFiles() throws Exception {
 
 		FileUtils.writeStringToFile(new File(this.appConfig.getUploadDirPath() + File.separator + "0" + File.separator + "fichier1.txt"),"fichier de test 1");
 		
@@ -207,7 +207,7 @@ public class FileControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_be_failure_when_downloading_user_files() throws Exception {
+	public void shouldBeFailureWhenDownloadingUserFiles() throws Exception {
 		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));

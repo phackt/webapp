@@ -47,10 +47,9 @@ public class FileEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id", nullable = false)
 	private UserEntity user;
-	
-	public FileEntity() {
-	}
 
+	public FileEntity(){}
+	
 	public FileEntity(UserEntity user, String originalFilename, String storedFilename, String description){
 		this.user = user;
 		this.originalFilename = originalFilename;

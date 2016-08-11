@@ -28,7 +28,7 @@ import com.gab.onewebapp.core.enums.UserProfileType;
 public class UserEntityTest {
 
 	@Test
-	public void should_be_equals(){
+	public void shouldBeEquals(){
 		UserEntity ue1 = new UserEntity();
 		UserEntity ue2 = new UserEntity();
 		

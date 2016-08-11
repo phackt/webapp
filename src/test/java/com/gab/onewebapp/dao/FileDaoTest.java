@@ -60,7 +60,7 @@ public class FileDaoTest {
     }
 	
 	@Test
-	public void should_find_files(){
+	public void shouldFindFiles(){
 				
 		assertNotNull(fileDao.findAll(null));
 		assertEquals(fileDao.findAll(user1.getUsername()).get(0).getOriginalFilename(), "fichier1.txt");
@@ -81,14 +81,14 @@ public class FileDaoTest {
 	}
 	
 	@Test
-	public void should_return_max_version_of_files(){
+	public void shouldReturnMaxVersionOfFiles(){
 
 		assertEquals((long)fileDao.getLastVersion(user1.getUsername(),"fichier1.txt"), 1L);
 		assertEquals((long)fileDao.getLastVersion(user2.getUsername(),"fichier2.txt"), 1L);
 	}
 	
 	@Test
-	public void should_update_files(){
+	public void shouldUpdateFiles(){
 
 		FileEntity fileEntity = fileDao.findByOriginalFilename(user1.getUsername(),"fichier1.txt").get(0);
 		fileEntity.setDescription("updated");
@@ -97,12 +97,12 @@ public class FileDaoTest {
 	}
 	
 	@Test
-	public void should_return_number_of_files(){
+	public void shouldReturnNumberOfFiles(){
 		assertEquals(fileDao.numberOfFiles(), 2);
 	}
 	
 	@Test
-	public void should_delete_files(){
+	public void shouldDeleteFiles(){
 		
 		FileEntity fileEntity = fileDao.findByOriginalFilename(user1.getUsername(),"fichier1.txt").get(0);
 		Long id = fileEntity.getId();

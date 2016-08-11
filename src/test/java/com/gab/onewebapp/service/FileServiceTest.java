@@ -12,8 +12,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -75,7 +73,7 @@ public class FileServiceTest {
 	}
 	
 	@Test
-	public void should_version_files() throws IOException{
+	public void shouldVersionFiles() throws IOException{
 		String fileContent = "ceci est le contenu";
 		assertEquals((long)this.fileService.getLastVersionFromCurrentUser("fichier1.txt"), 1L);
 		this.fileService.saveOrUpdate(fileContent.getBytes(), "fichier1.txt", "fichier de test 1");
@@ -84,7 +82,7 @@ public class FileServiceTest {
 	}
 	
 	@Test
-	public void should_delete_file_with_id(){
+	public void shouldDeleteFileWithId(){
 		this.fileService.deleteFile(0L);
 		assertNull(this.fileService.findById(0));
 	}

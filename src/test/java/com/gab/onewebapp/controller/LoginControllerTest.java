@@ -48,7 +48,7 @@ public class LoginControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_display_login_page_no_action() throws Exception {
+	public void shouldDisplayLoginPageNoAction() throws Exception {
 		
 		this.mockMvc.perform(get(LoginController.ROUTE_LOGIN))
 		.andExpect(status().isOk())
@@ -58,7 +58,7 @@ public class LoginControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_display_login_page_error() throws Exception {
+	public void shouldDisplayLoginPageError() throws Exception {
 		
 		this.mockMvc.perform(get(LoginController.ROUTE_LOGIN)
 				.param("action", "error")
@@ -70,7 +70,7 @@ public class LoginControllerTest {
 	
 	@Test
 	@Transactional
-	public void should_display_login_page_logout() throws Exception {
+	public void shouldDisplayLoginPageLogout() throws Exception {
 		
 		this.mockMvc.perform(get(LoginController.ROUTE_LOGIN)
 				.param("action", "logout")

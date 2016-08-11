@@ -20,9 +20,6 @@ public class UserDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public void UserDao(){	
-	}
-		
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
 	public List<UserEntity> findAll(){

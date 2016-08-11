@@ -1,3 +1,3 @@
-$('#submitFormLogout').click(function(){
-	$('#formLogout').submit();
+$("#submitFormLogout").click(function(){
+	$("#formLogout").submit();
 });

@@ -24,7 +24,7 @@ import com.gab.onewebapp.core.enums.PermissionType;
 public class PermissionEntityTest {
 
 	@Test
-	public void should_be_equals(){
+	public void shouldBeEquals(){
 		PermissionEntity pe1 = new PermissionEntity();
 		PermissionEntity pe2 = new PermissionEntity();
 		

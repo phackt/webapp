@@ -9,8 +9,6 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
@@ -51,7 +49,7 @@ public class UserServiceTest {
 	private UserService userService;
 	
 	@Test
-	public void should_get_user_role(){
+	public void shouldGetUserRole(){
 		
 		UserEntity userEntity = this.userService.findByUsername("user");
 		Set<UserProfileEntity> userProfiles = userEntity.getUserProfiles();
@@ -61,13 +59,13 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void should_delete_user_with_id(){
+	public void shouldDeleteUserWithId(){
 		this.userService.deleteUser(0L);
 		assertNull(this.userService.findById(0));
 	}
 	
 	@Test
-	public void should_save_or_update(){
+	public void shouldSaveOrUpdate(){
 		UserEntity userEntity = this.userService.findByUsername("user");
 		userEntity.setUsername("user_updated");
 		this.userService.saveOrUpdate(userEntity);

@@ -44,17 +44,17 @@ public class UserDaoTest {
 	private UserDao userDao;
 	
 	@Test
-	public void should_find_all(){
+	public void shouldFindAll(){
 		assertEquals(userDao.findAll().size(), 2);
 	}
 	
 	@Test
-	public void should_return_number_of_users(){
+	public void shouldReturnNumberOfUsers(){
 		assertEquals(userDao.numberOfUsers(),2);
 	}
 	
 	@Test
-	public void should_save_or_update(){
+	public void shouldSaveOrUpdate(){
 		UserEntity userEntity = userDao.findByUsername("user1");
 		userEntity.setUsername("user_updated");
 		userEntity.setEnabled(true);

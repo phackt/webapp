@@ -23,9 +23,6 @@ public class FileDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public void FileEntity(){	
-	}
-	
 	private Criteria createFindAllByUserCriteria(String username){
 		
 		Criteria allFilesCriteria = this.sessionFactory.getCurrentSession().createCriteria(FileEntity.class);

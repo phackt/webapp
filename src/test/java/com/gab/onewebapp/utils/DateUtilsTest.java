@@ -16,7 +16,7 @@ import org.junit.Test;
 public class DateUtilsTest {
 
 	@Test
-	public void should_format_date_thanks_to_locale() throws ParseException {
+	public void shouldFormatDateWithLocale() throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date date;
 

@@ -24,7 +24,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class FileEntityTest {
 
 	@Test
-	public void should_be_equals(){
+	public void shouldBeEquals(){
 		FileEntity fe1 = new FileEntity();
 		Date date = new Date();
 		
