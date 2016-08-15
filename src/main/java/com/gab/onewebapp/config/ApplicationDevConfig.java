@@ -17,6 +17,7 @@ public class ApplicationDevConfig extends ApplicationCommonConfig {
 	//TODO:hibernate tools lancer les creation de table à partir des sql et insérer le user Admin
 	//TODO:refaire la page 403 access denied avec retour précedente page
 	//TODO:voir la pertinence de détacher les servlets dans des DefferedResult (perfs)
+	//TODO:faire un logging interceptor pour chaque methode (Spring AOP? et non uniquement un Spring MVC interceptor)
 
 	
 //	@Autowired

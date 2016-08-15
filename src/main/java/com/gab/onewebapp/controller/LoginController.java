@@ -36,7 +36,7 @@ public class LoginController {
 			HttpServletResponse httpServletResponse) {
 
 		logger.info("calling url " + httpServletRequest.getRequestURL().toString());
-
+		
 		String msgLoginController = "";
 		boolean isErrorClassActive = false;
 
