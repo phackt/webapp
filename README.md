@@ -68,3 +68,4 @@ https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Shee
 https://tomcat.apache.org/tomcat-8.0-doc/config/filter.html#CORS_Filter<br />
 https://www.w3.org/TR/cors/<br />
 http://news.netcraft.com/archives/2016/03/17/95-of-https-servers-vulnerable-to-trivial-mitm-attacks.html<br />
+https://geekflare.com/secure-cookie-flag-in-tomcat/
