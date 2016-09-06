@@ -18,8 +18,6 @@ public class ApplicationDevConfig extends ApplicationCommonConfig {
 	//TODO:refaire la page 403 access denied avec retour précedente page
 	//TODO:voir la pertinence de détacher les servlets dans des DefferedResult (perfs)
 	//TODO:faire un logging interceptor pour chaque methode (Spring AOP? et non uniquement un Spring MVC interceptor)
-	//TODO:sécuriser les cookies via un filter (owasp esapi)
-
 	
 //	@Autowired
 //	DataSource dataSource;
