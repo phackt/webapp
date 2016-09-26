@@ -8,7 +8,7 @@ Une appli cas d'école limitant les vulnérabilités Web:
 
 Les fonctionnalités:
   - Importer et sauvegarder des fichiers
-  - Scanner des sites web autorisant les requêtes CORS
+  - Scanner des sites web autorisant les requêtes CORS (à venir)
 
 Les technologies:
   - Java 8 (testé sous Tomcat 8.0.35, Servlet 3.1)
