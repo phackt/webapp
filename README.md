@@ -54,7 +54,7 @@ Ceci ne concernant pas les élements HTML classiques tels que les balises IMG, S
 Les requêtes CORS peuvent être autorisées (ou bloquées au niveau du serveur) -- CorsFilter sous Tomcat (> 7).<br />Si notre application WEB ne doit pas partager de ressources à des sites tiers, il convient de les bloquer explicitement (erreur 403 retournée) au lieu de déléguer la sécurité au navigateur.<br />Le navigateur bloquera l'accès à la réponse en l'absence d'un header Access-Control-Allow-Origin, cependant le serveur aura déjà interprété cette requête comme une requête classique et donc valide (code 200 retourné).<br /> *Attention une requête simple CORS POST withCredentials envoie votre cookie dans la requête sur le site tiers*.
 
 ### HTTPS
-Spring security intégre également par défaut la politique HTTP Strict Transport Security (header Strict-Transport-Security), qui spécifie au navigateur d'interpréter toutes les requêtes over SSL (redirection interne 307).<br />Il est primordial de crypter les échanges avec un certificat signé par une CA.
+Spring security intégre également par défaut la politique **HTTP Strict Transport Security (header Strict-Transport-Security)**, qui spécifie au navigateur d'interpréter toutes les requêtes over SSL (redirection interne 307).<br />Il est primordial de chiffrer les échanges avec un certificat signé par une CA (Cache HSTS sous chrome chrome://net-internals/#hsts).
 
 Il est également important de connaitre si les parties tiers utilisées (framework Java, JS, ...) sont exemptes de vulnérabilités.
 
