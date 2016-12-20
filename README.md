@@ -56,7 +56,7 @@ Les requêtes CORS peuvent être autorisées (ou bloquées au niveau du serveur)
 ### HTTPS
 Spring security intégre également par défaut la politique **HTTP Strict Transport Security (header Strict-Transport-Security)**, qui spécifie au navigateur d'interpréter toutes les requêtes over SSL/TLS (redirection interne 307).<br />Il est primordial de chiffrer les échanges avec un certificat signé par une CA (Cache HSTS sous chrome chrome://net-internals/#hsts).
 
-Il est également important de connaitre si les parties tiers utilisées (framework Java, JS, ...) sont exemptes de vulnérabilités.
+Il est également important de connaitre si les parties tierces utilisées (framework Java, JS, ...) sont exemptes de vulnérabilités.
 
 ***Cette application utilise HSTS, vous devez avoir configuré votre serveur pour autoriser les connexion SSL.<br />Un certificat self-signed est présent dans crt/demowebapp.crt. Ceci ne sert que pour une utilisation en local, sinon il convient de créer un certificat signé par une CA.***
   
