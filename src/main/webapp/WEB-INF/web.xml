@@ -87,6 +87,7 @@
 	<!-- Par défaut les requêtes simples (même withCredentials) sont acceptées par les serveurs sans filtre spécifique, -->
 	<!-- La sécurité se situe au niveau du navigateur qui vérifie si le Access-Control-Allow-Origin header est positionné (non par défaut) -->
 	<!-- Cependant une première requête non préflight peut être executée sur le serveur si la conf CORS sur ce dernier n'est pas explicite. -->
+	<!-- Based on Origin request header: https://tools.ietf.org/html/rfc6454 -->
 	<!-- http://tomcat.apache.org/tomcat-8.0-doc/images/cors-flowchart.png -->
 	<filter>
 		<filter-name>CorsFilter</filter-name>
