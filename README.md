@@ -40,6 +40,7 @@ Comment s'en prémunir;
 - Spring Security inclut par défaut de nombreux headers dans la réponse HTTP;
     - **X-Content-Type-Options**: Stipule de ne pas déviner le MIME-Type si mal renseigné
     - **X-XSS-Protection**: Stipule d'activer le filtre XSS du navigateur
+ - Configurer les directives [Content-Security-Policy](https://content-security-policy.com/)  
 
 ## Cross Site Request Forgery
 Comment s'en prémunir;   
