@@ -32,7 +32,9 @@ Quelques préconisations identifiées pour sécuriser votre web app:
 
 ## XSS
 Comment s'en prémunir;
-- Echappez les caractères HTML (testez les fonctions d'échappement du frawework de rendu que vous utilisez). <br />Si JSTL, les caractères sont automatiquement échappés. EL et scriptlet sont cependant vulnérables aux XSS.<br />Autre exemple si PHP, utilisez htmlentities (avec l'option ENT_QUOTES pour échapper le '), ou htmlspecialchars.
+- **defaultHtmlEscape ** étant à True par défaut, préférez les Spring tags pour vos outputs (ex: ```<spring:message code="home.label.uploadFiles.springForm.small_func_description" />```)  
+- Si JSTL, les caractères sont automatiquement échappés. EL et scriptlet sont cependant vulnérables aux XSS.<br />Autre exemple si PHP, utilisez htmlentities (avec l'option ENT_QUOTES pour échapper le '), ou htmlspecialchars.
+- Vous pouvez créer un Filter qui en entrée assainira vos données avec une API comme [JSoup](https://jsoup.org/cookbook/cleaning-html/whitelist-sanitizer) ou [OWASP Html Sanitizer](https://github.com/OWASP/java-html-sanitizer) et qui en sortie échappera explicitement vos données avec [HtmlUtils.htmlEscape](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/util/HtmlUtils.html#htmlEscape-java.lang.String-) ou [StringEscapeUtils.escapeHtml4](https://commons.apache.org/proper/commons-lang/javadocs/api-release/).
 - Vous pouvez également protéger votre application derrière un Web Application Firewall (ex: ModSecurity - http://www.modsecurity.org/)
 - N'hésitez pas à éprouver votre application avec un outil tel que [Xenotix](https://www.owasp.org/index.php/OWASP_Xenotix_XSS_Exploit_Framework "https://www.owasp.org/index.php/OWASP_Xenotix_XSS_Exploit_Framework") ou le support [OWASP XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet "https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet")
 - Spring Security inclut par défaut de nombreux headers dans la réponse HTTP;
