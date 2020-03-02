@@ -48,7 +48,7 @@ Comment s'en prémunir;
 - Utilisez un nonce (unique token) qui n'est pas prédictible par l'assaillant
 - Utilisez les headers de sécurité;
     - **Cache-Control**, **Expires**: Spécifie que la ressource ne doit pas être mise en cache
-    - **X-Frame-Options**: Empêche la page d'être incluse dans une frame
+    - **X-Frame-Options**: Empêche la page d'être incluse dans une frame (clickjacking)
     - **Content-Security-Policy**: Stipule plusieurs politiques de sécurité sur les requêtes Cross-Origin des éléments HTML (empêche également l'éxécution de scripts inline (XSS))
 
 ## Cross Origin Resource Sharing
